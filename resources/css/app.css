@@ -1,0 +1,638 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --color-brand-navy: #003366;
+    --color-brand-gold: #FFCC00;
+    --color-brand-cyan: #06b6d4;
+    --color-dark-bg: #070B14;
+    --color-dark-surface: #0E1626;
+    --color-dark-card: rgba(17, 27, 46, 0.75);
+}
+
+/* ==========================================================================
+   Root & Color Schemes (Dark & Light)
+   ========================================================================== */
+:root {
+    color-scheme: light dark;
+}
+
+/* Base custom styles & gradients (Dark Default) */
+body {
+    background-color: #070B14;
+    color: #E2E8F0;
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Background Ambient Lighting Effect */
+.ambient-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+        radial-gradient(circle at 15% 15%, rgba(0, 51, 102, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(255, 204, 0, 0.12) 0%, transparent 50%);
+    transition: background 0.25s ease;
+}
+
+/* Glassmorphism Cards */
+.glass-panel {
+    background: rgba(14, 22, 38, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-panel-interactive {
+    background: rgba(14, 22, 38, 0.65);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-interactive:hover {
+    background: rgba(20, 32, 54, 0.85);
+    border-color: rgba(99, 102, 241, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px -8px rgba(0, 51, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Glowing Accent Border */
+.glow-border {
+    position: relative;
+}
+.glow-border::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, rgba(0, 51, 102, 0.8), rgba(255, 204, 0, 0.6), rgba(99, 102, 241, 0.8));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.35;
+    transition: opacity 0.3s ease;
+}
+.glow-border:hover::after {
+    opacity: 0.75;
+}
+
+/* Social Media Slide Preview Mockup */
+.slide-canvas {
+    aspect-ratio: 1 / 1;
+    border-radius: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slide-canvas:hover {
+    transform: scale(1.015);
+    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.75);
+}
+
+/* Carousel Slide Visibility Controls (Fix stacking issue) */
+.slide-item.hidden {
+    display: none !important;
+}
+
+.slide-item.flex {
+    display: flex !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(10, 15, 29, 0.8);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Toast Container */
+#toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    pointer-events: none;
+}
+
+.toast-message {
+    pointer-events: auto;
+    animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================================================
+   Comprehensive Light Mode Theme (html:not(.dark) / html.light)
+   ========================================================================== */
+html:not(.dark),
+html.light {
+    color-scheme: light;
+}
+
+/* 1. Base Body & Ambient Glow */
+html:not(.dark) body,
+html.light body {
+    background-color: #F8FAFC;
+    color: #1E293B;
+}
+
+html:not(.dark) .ambient-glow,
+html.light .ambient-glow {
+    background: 
+        radial-gradient(circle at 10% 10%, rgba(0, 51, 102, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 15%, rgba(99, 102, 241, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 50% 90%, rgba(255, 204, 0, 0.06) 0%, transparent 45%);
+}
+
+/* 2. Header, Navigation Bar & Brand Identity */
+html:not(.dark) header,
+html.light header {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid #E2E8F0 !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+}
+
+html:not(.dark) .brand-logo-inner,
+html.light .brand-logo-inner {
+    background-color: #FFFFFF !important;
+}
+
+html:not(.dark) .brand-logo-text,
+html.light .brand-logo-text {
+    background-image: linear-gradient(135deg, #003366 0%, #312E81 50%, #D97706 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+}
+
+html:not(.dark) .brand-badge-text,
+html.light .brand-badge-text {
+    background-color: #EEF2FF !important;
+    border-color: #C7D2FE !important;
+    color: #4338CA !important;
+}
+
+html:not(.dark) header nav a,
+html.light header nav a {
+    color: #475569 !important;
+}
+
+html:not(.dark) header nav a:hover,
+html.light header nav a:hover {
+    color: #0F172A !important;
+    background-color: #F1F5F9 !important;
+}
+
+html:not(.dark) header nav a.bg-white\/10,
+html.light header nav a.bg-white\/10 {
+    background-color: #E2E8F0 !important;
+    color: #0F172A !important;
+    font-weight: 600 !important;
+}
+
+html:not(.dark) header nav a.bg-indigo-600\/20,
+html.light header nav a.bg-indigo-600\/20 {
+    background-color: #EEF2FF !important;
+    border-color: #C7D2FE !important;
+    color: #3730A3 !important;
+    font-weight: 600 !important;
+}
+
+html:not(.dark) header nav a.bg-amber-500\/20,
+html.light header nav a.bg-amber-500\/20 {
+    background-color: #FEF3C7 !important;
+    border-color: #FDE68A !important;
+    color: #92400E !important;
+    font-weight: 600 !important;
+}
+
+/* 3. Glassmorphism Panels & Cards */
+html:not(.dark) .glass-panel,
+html.light .glass-panel {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #E2E8F0;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1);
+    color: #1E293B;
+}
+
+html:not(.dark) .glass-panel-interactive,
+html.light .glass-panel-interactive {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #E2E8F0;
+    color: #1E293B;
+    box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.05);
+}
+
+html:not(.dark) .glass-panel-interactive:hover,
+html.light .glass-panel-interactive:hover {
+    background: #FFFFFF;
+    border-color: #A5B4FC;
+    box-shadow: 0 15px 35px -10px rgba(99, 102, 241, 0.15);
+}
+
+/* 4. Typography & Headings */
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *):not(.bg-gradient-to-r):not(.bg-gradient-to-r *):not(button.bg-indigo-600):not(button.bg-emerald-600):not(button.bg-rose-600).text-white,
+html.light :not(.slide-canvas):not(.slide-canvas *):not(.bg-gradient-to-r):not(.bg-gradient-to-r *):not(button.bg-indigo-600):not(button.bg-emerald-600):not(button.bg-rose-600).text-white {
+    color: #0F172A !important;
+}
+
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).text-slate-100,
+html.light :not(.slide-canvas):not(.slide-canvas *).text-slate-100,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).text-slate-200,
+html.light :not(.slide-canvas):not(.slide-canvas *).text-slate-200 {
+    color: #1E293B !important;
+}
+
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).text-slate-300,
+html.light :not(.slide-canvas):not(.slide-canvas *).text-slate-300 {
+    color: #334155 !important;
+}
+
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).text-slate-400,
+html.light :not(.slide-canvas):not(.slide-canvas *).text-slate-400 {
+    color: #64748B !important;
+}
+
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).text-slate-500,
+html.light :not(.slide-canvas):not(.slide-canvas *).text-slate-500 {
+    color: #94A3B8 !important;
+}
+
+/* Ensure buttons with solid or gradient fills keep white text */
+html:not(.dark) .bg-gradient-to-r,
+html.light .bg-gradient-to-r,
+html:not(.dark) .bg-gradient-to-r span,
+html.light .bg-gradient-to-r span,
+html:not(.dark) button.bg-indigo-600,
+html.light button.bg-indigo-600,
+html:not(.dark) button.bg-emerald-600,
+html.light button.bg-emerald-600,
+html:not(.dark) button.bg-rose-600,
+html.light button.bg-rose-600,
+html:not(.dark) button[type="submit"],
+html.light button[type="submit"] {
+    color: #FFFFFF !important;
+}
+
+/* 5. Buttons, Badges, Pills & Chips */
+html:not(.dark) a.bg-slate-800,
+html.light a.bg-slate-800,
+html:not(.dark) button.bg-slate-800,
+html.light button.bg-slate-800 {
+    background-color: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+    color: #1E293B !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+html:not(.dark) a.bg-slate-800:hover,
+html.light a.bg-slate-800:hover,
+html:not(.dark) button.bg-slate-800:hover,
+html.light button.bg-slate-800:hover {
+    background-color: #F8FAFC !important;
+    border-color: #94A3B8 !important;
+    color: #0F172A !important;
+}
+
+/* Badges, Chips, Hashtags, and Chunks (Non-button elements) */
+html:not(.dark) span.bg-slate-800,
+html.light span.bg-slate-800,
+html:not(.dark) span.bg-slate-900,
+html.light span.bg-slate-900,
+html:not(.dark) div.bg-slate-800,
+html.light div.bg-slate-800,
+html:not(.dark) div.bg-slate-900,
+html.light div.bg-slate-900 {
+    background-color: #F1F5F9 !important;
+    border-color: #CBD5E1 !important;
+    color: #334155 !important;
+}
+
+/* Template selection buttons in brief form */
+html:not(.dark) .template-btn,
+html.light .template-btn {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+}
+
+html:not(.dark) .template-btn:hover,
+html.light .template-btn:hover {
+    background-color: #F8FAFC !important;
+    border-color: #A5B4FC !important;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.08) !important;
+}
+
+/* Quick role switcher dropdown */
+html:not(.dark) #quick-role-dropdown,
+html.light #quick-role-dropdown {
+    background-color: #FFFFFF !important;
+    border-color: #CBD5E1 !important;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15) !important;
+}
+
+html:not(.dark) #quick-role-dropdown button:hover,
+html.light #quick-role-dropdown button:hover {
+    background-color: #F1F5F9 !important;
+}
+
+/* 6. Form Inputs, Textareas & Selects */
+html:not(.dark) input:not([type="checkbox"]):not([type="radio"]):not([type="color"]),
+html.light input:not([type="checkbox"]):not([type="radio"]):not([type="color"]),
+html:not(.dark) textarea,
+html.light textarea,
+html:not(.dark) select,
+html.light select {
+    background-color: #FFFFFF !important;
+    border-color: #CBD5E1 !important;
+    color: #0F172A !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html:not(.dark) input:focus,
+html.light input:focus,
+html:not(.dark) textarea:focus,
+html.light textarea:focus,
+html:not(.dark) select:focus,
+html.light select:focus {
+    border-color: #6366F1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+}
+
+html:not(.dark) input::placeholder,
+html.light input::placeholder,
+html:not(.dark) textarea::placeholder,
+html.light textarea::placeholder {
+    color: #94A3B8 !important;
+}
+
+/* 7. Inner Surfaces, Sub-Panels & Telemetry Cards */
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-900,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-900,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-950,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-950,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/50,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/50,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/60,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/60,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/70,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/70,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/80,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/80,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/90,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-900\/90,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-950\/60,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-950\/60,
+html:not(.dark) :not(.slide-canvas):not(.slide-canvas *).bg-slate-950\/80,
+html.light :not(.slide-canvas):not(.slide-canvas *).bg-slate-950\/80 {
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
+}
+
+html:not(.dark) .border-white\/10,
+html.light .border-white\/10,
+html:not(.dark) .border-white\/5,
+html.light .border-white\/5,
+html:not(.dark) .border-slate-800,
+html.light .border-slate-800,
+html:not(.dark) .border-slate-700,
+html.light .border-slate-700 {
+    border-color: #E2E8F0 !important;
+}
+
+/* 8. Status Badges & Pills */
+html:not(.dark) .bg-emerald-500\/10,
+html.light .bg-emerald-500\/10,
+html:not(.dark) .bg-emerald-500\/20,
+html.light .bg-emerald-500\/20 {
+    background-color: #DCFCE7 !important;
+    border-color: #86EFAC !important;
+    color: #166534 !important;
+}
+
+html:not(.dark) .text-emerald-300,
+html.light .text-emerald-300,
+html:not(.dark) .text-emerald-400,
+html.light .text-emerald-400 {
+    color: #166534 !important;
+}
+
+html:not(.dark) .bg-amber-500\/10,
+html.light .bg-amber-500\/10,
+html:not(.dark) .bg-amber-500\/20,
+html.light .bg-amber-500\/20 {
+    background-color: #FEF3C7 !important;
+    border-color: #FDE68A !important;
+    color: #92400E !important;
+}
+
+html:not(.dark) .text-amber-300,
+html.light .text-amber-300,
+html:not(.dark) .text-amber-400,
+html.light .text-amber-400 {
+    color: #B45309 !important;
+}
+
+html:not(.dark) .bg-rose-500\/10,
+html.light .bg-rose-500\/10,
+html:not(.dark) .bg-rose-500\/20,
+html.light .bg-rose-500\/20 {
+    background-color: #FFE4E6 !important;
+    border-color: #FDA4AF !important;
+    color: #9F1239 !important;
+}
+
+html:not(.dark) .text-rose-300,
+html.light .text-rose-300,
+html:not(.dark) .text-rose-400,
+html.light .text-rose-400 {
+    color: #BE123C !important;
+}
+
+html:not(.dark) .bg-indigo-500\/10,
+html.light .bg-indigo-500\/10,
+html:not(.dark) .bg-indigo-500\/20,
+html.light .bg-indigo-500\/20,
+html:not(.dark) .bg-indigo-600\/20,
+html.light .bg-indigo-600\/20,
+html:not(.dark) .bg-indigo-600\/30,
+html.light .bg-indigo-600\/30 {
+    background-color: #EEF2FF !important;
+    border-color: #C7D2FE !important;
+    color: #3730A3 !important;
+}
+
+html:not(.dark) .text-indigo-200,
+html.light .text-indigo-200,
+html:not(.dark) .text-indigo-300,
+html.light .text-indigo-300 {
+    color: #4338CA !important;
+}
+
+html:not(.dark) .text-cyan-300,
+html.light .text-cyan-300,
+html:not(.dark) .text-cyan-400,
+html.light .text-cyan-400 {
+    color: #0E7490 !important;
+}
+
+/* 9. RBAC Matrix Cards (admin/users) & Feedback Banners */
+html:not(.dark) .border-amber-500\/30,
+html.light .border-amber-500\/30 {
+    background-color: #FFFBEB !important;
+    border-color: #FDE68A !important;
+}
+
+html:not(.dark) .border-indigo-500\/30,
+html.light .border-indigo-500\/30 {
+    background-color: #EEF2FF !important;
+    border-color: #C7D2FE !important;
+}
+
+html:not(.dark) .border-emerald-500\/30,
+html.light .border-emerald-500\/30 {
+    background-color: #F0FDF4 !important;
+    border-color: #A7F3D0 !important;
+}
+
+html:not(.dark) .bg-emerald-950\/40,
+html.light .bg-emerald-950\/40 {
+    background-color: #ECFDF5 !important;
+    border-color: #A7F3D0 !important;
+    color: #065F46 !important;
+}
+
+html:not(.dark) .bg-rose-950\/40,
+html.light .bg-rose-950\/40 {
+    background-color: #FFF1F2 !important;
+    border-color: #FECDD3 !important;
+    color: #9F1239 !important;
+}
+
+/* 10. Dashboard Filter Tabs */
+html:not(.dark) .border-white\/5 a.bg-white\/10,
+html.light .border-white\/5 a.bg-white\/10 {
+    background-color: #003366 !important;
+    color: #FFFFFF !important;
+}
+
+html:not(.dark) .border-white\/5 a:not(.bg-white\/10):not(.bg-amber-500\/20):not(.bg-emerald-500\/20):not(.bg-rose-500\/20),
+html.light .border-white\/5 a:not(.bg-white\/10):not(.bg-amber-500\/20):not(.bg-emerald-500\/20):not(.bg-rose-500\/20) {
+    color: #64748B !important;
+}
+
+html:not(.dark) .border-white\/5 a:not(.bg-white\/10):hover,
+html.light .border-white\/5 a:not(.bg-white\/10):hover {
+    background-color: #F1F5F9 !important;
+    color: #0F172A !important;
+}
+
+/* 11. Tables */
+html:not(.dark) table thead,
+html.light table thead {
+    background-color: #F1F5F9 !important;
+    color: #475569 !important;
+    border-bottom: 1px solid #CBD5E1 !important;
+}
+
+html:not(.dark) table tbody tr,
+html.light table tbody tr {
+    border-bottom: 1px solid #E2E8F0 !important;
+}
+
+html:not(.dark) table tbody tr:hover,
+html.light table tbody tr:hover {
+    background-color: #F8FAFC !important;
+}
+
+/* 12. Modals & Dialogs */
+html:not(.dark) .modal-container,
+html.light .modal-container {
+    background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+html:not(.dark) .modal-container .glass-panel,
+html.light .modal-container .glass-panel {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    color: #0F172A !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* 13. Code / Pre / JSON Inspector */
+html:not(.dark) pre,
+html.light pre {
+    background-color: #0F172A !important;
+    color: #34D399 !important;
+    border-color: #334155 !important;
+}
+
+/* 14. Preserve Slide Canvas Graphic Preview Contrast */
+.slide-canvas,
+.slide-canvas .text-white,
+.slide-canvas .text-slate-100,
+.slide-canvas .text-slate-200,
+.slide-canvas .text-slate-300,
+.slide-canvas .text-slate-400 {
+    color: #FFFFFF !important;
+}
+
+.slide-canvas .text-amber-400,
+.slide-canvas .text-amber-300 {
+    color: #FCD34D !important;
+}
+
+/* 15. Toasts */
+html:not(.dark) .toast-message,
+html.light .toast-message {
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 16. Footer */
+html:not(.dark) footer,
+html.light footer {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-top: 1px solid #E2E8F0;
+    color: #64748B;
+}
