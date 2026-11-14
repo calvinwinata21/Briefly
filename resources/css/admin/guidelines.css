@@ -1,0 +1,37 @@
+/* ==========================================================================
+   Admin Mode: Brand Guidelines & RAG Vector Knowledge Store Styles
+   ========================================================================== */
+
+/* Color Picker & Swatch Preview */
+.admin-color-preview {
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* RAG Vector Chunks Card Styles */
+.rag-chunk-card {
+    transition: all 0.2s ease;
+}
+
+.rag-chunk-card:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+}
+
+/* Light Mode Overrides for Guidelines */
+html:not(.dark) .admin-color-preview,
+html.light .admin-color-preview {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+html:not(.dark) .rag-chunk-card,
+html.light .rag-chunk-card {
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
+}
+
+html:not(.dark) .rag-chunk-card:hover,
+html.light .rag-chunk-card:hover {
+    border-color: #A5B4FC !important;
+    background-color: #FFFFFF !important;
+}

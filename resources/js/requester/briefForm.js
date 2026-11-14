@@ -1,7 +1,7 @@
 /**
- * Requester Brief Form Interactive Module
+ * Requester Mode: Brief Creation Form, Template Loader & Submit State Module
  */
-import { showToast } from './toast.js';
+import { showToast } from '../common/toast.js';
 
 export function initBriefForm() {
     const briefForm = document.getElementById('brief-form');
@@ -91,7 +91,7 @@ Link pendaftaran ada di bio profil. Narahubung: Kak Dika (WA: 0877-5544-3322)`
         btn.addEventListener('click', (e) => {
             const templateKey = e.currentTarget.dataset.template;
             if (templates[templateKey]) {
-                titleInput.value = templates[templateKey].title;
+                if (titleInput) titleInput.value = templates[templateKey].title;
                 briefTextarea.value = templates[templateKey].text;
                 updateCharCount();
                 showToast(`Template "${templates[templateKey].title}" berhasil dimuat!`, 'info');
@@ -100,45 +100,43 @@ Link pendaftaran ada di bio profil. Narahubung: Kak Dika (WA: 0877-5544-3322)`
         });
     });
 
-    // Submit handler with animated AI pipeline progress
+    // Form submission state with progressive status updates
     briefForm.addEventListener('submit', (e) => {
-        if (briefTextarea.value.trim().length < 10) {
+        const text = briefTextarea.value.trim();
+        if (text.length < 10) {
             e.preventDefault();
-            showToast('Brief minimal harus berisi 10 karakter.', 'warning');
+            showToast('Teks brief terlalu singkat. Masukkan minimal 10 karakter.', 'warning');
+            briefTextarea.focus();
             return;
         }
 
+        // Show loading overlay
         if (loadingOverlay) {
             loadingOverlay.classList.remove('hidden');
             loadingOverlay.classList.add('flex');
-
-            const steps = [
-                "1/4 Menganalisis entitas & intensi dari brief...",
-                "2/4 Menjalankan similarity search pada RAG Brand Guidelines & SOP...",
-                "3/4 Membangun slide layout visual dan copywriting Instagram...",
-                "4/4 Memvalidasi skema guardrail data formal..."
-            ];
-
-            let stepIdx = 0;
-            const stepInterval = setInterval(() => {
-                stepIdx++;
-                if (stepIdx < steps.length && loadingStatusText) {
-                    loadingStatusText.textContent = steps[stepIdx];
-                } else {
-                    clearInterval(stepInterval);
-                }
-            }, 800);
         }
 
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                </svg>
-                Memproses Agen AI...
-            `;
+            submitBtn.classList.add('opacity-75', 'cursor-wait');
         }
+
+        // Progress step simulation for smoother UX while backend AI Agent processes
+        const steps = [
+            '1/4 Mengekstraksi informasi & parameter brief...',
+            '2/4 Menghubungkan RAG Vector Store & Brand Guideline kampus...',
+            '3/4 Agen AI menyusun struktur korsel & layout visual...',
+            '4/4 Memvalidasi schema guardrail & menyimpan draf media...'
+        ];
+
+        let stepIndex = 0;
+        const interval = setInterval(() => {
+            stepIndex++;
+            if (stepIndex < steps.length && loadingStatusText) {
+                loadingStatusText.textContent = steps[stepIndex];
+            } else {
+                clearInterval(interval);
+            }
+        }, 1200);
     });
 }

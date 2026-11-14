@@ -1,5 +1,5 @@
-<x-layouts.app title="Masuk — Briefly AI">
-    <div class="max-w-md mx-auto my-12">
+<x-layouts.guest title="Masuk — Briefly AI">
+    <div class="w-full max-w-md">
         <!-- Brand Header -->
         <div class="text-center mb-8">
             <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#003366] via-indigo-600 to-[#FFCC00] p-[2px] shadow-2xl shadow-indigo-500/20 mb-4">
@@ -10,7 +10,7 @@
                 </div>
             </div>
             <h1 class="text-2xl font-bold tracking-tight text-white">Masuk ke Briefly AI</h1>
-            <p class="text-xs text-slate-400 mt-1">Platform Asisten Produksi Media & Desain Kampus Berbasis AI Agent</p>
+            <p class="text-xs text-slate-400 mt-1">Platform Asisten Produksi Media &amp; Desain Kampus Berbasis AI Agent</p>
         </div>
 
         <!-- Login Card -->
@@ -93,4 +93,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-layouts.guest>

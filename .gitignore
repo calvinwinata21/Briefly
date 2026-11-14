@@ -25,3 +25,35 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# SQLite database files (di root maupun di database/)
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Laragon & server lokal
+*.bak
+
+# AI Agent & IDE tools
+/.agents/
+/.gemini/
+.aider*
+.claude/
+
+# npm & build cache
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# Windows
+desktop.ini
+$RECYCLE.BIN/
+
+# PHP
+php_errorlog
+*.swp

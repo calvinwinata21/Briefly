@@ -86,7 +86,7 @@
 
                 <div>
                     <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Dokumen Panduan (PDF / Markdown)
+                        Dokumen Panduan (PDF / Markdown).....................................
                     </label>
                     <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 flex items-center justify-between">
                         <span class="font-mono">{{ $guideline->document_path }}</span>

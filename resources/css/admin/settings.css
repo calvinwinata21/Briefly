@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Admin Mode: AI Agent Configuration & Prompt Templates Styles
+   ========================================================================== */
+
+/* Code / Pre / System Prompt Inspector */
+pre.system-prompt-box {
+    background-color: #070B14;
+    border: 1px solid #1E293B;
+    border-radius: 0.75rem;
+    font-family: var(--font-mono, monospace);
+}
+
+/* Light Mode Overrides for AI Settings */
+html:not(.dark) pre,
+html.light pre,
+html:not(.dark) pre.system-prompt-box,
+html.light pre.system-prompt-box {
+    background-color: #0F172A !important;
+    color: #34D399 !important;
+    border-color: #334155 !important;
+}
+
+html:not(.dark) .ai-param-readonly,
+html.light .ai-param-readonly {
+    background-color: #F1F5F9 !important;
+    border-color: #CBD5E1 !important;
+    color: #334155 !important;
+}

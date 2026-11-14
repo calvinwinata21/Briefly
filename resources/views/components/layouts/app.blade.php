@@ -19,51 +19,51 @@
     <div class="ambient-glow"></div>
 
     <!-- Navigation Bar -->
-    <header class="relative z-40 border-b border-white/10 bg-[#0A0F1D]/80 backdrop-blur-xl sticky top-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
+    <header class="relative z-40 border-b border-white/10 dark:border-white/10 bg-white/95 dark:bg-[#0A0F1D]/80 backdrop-blur-xl sticky top-0 transition-colors">
+        <div class="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 gap-2 sm:gap-4">
                 <!-- Brand Logo & Domain Info -->
-                <div class="flex items-center gap-3">
-                    <a href="{{ url('/') }}" class="flex items-center gap-3 group">
-                        <div class="brand-logo-box w-10 h-10 rounded-xl bg-gradient-to-tr from-[#003366] via-indigo-600 to-[#FFCC00] p-[2px] shadow-lg shadow-indigo-950/50 group-hover:scale-105 transition-transform duration-200">
-                            <div class="brand-logo-inner w-full h-full bg-[#0E1626] rounded-[10px] flex items-center justify-center">
+                <div class="flex items-center min-w-0">
+                    <a href="{{ url('/') }}" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                        <div class="brand-logo-box w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-[#003366] via-indigo-600 to-[#FFCC00] p-[2px] shadow-md shadow-indigo-950/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
+                            <div class="brand-logo-inner w-full h-full bg-[#0E1626] rounded-[10px] flex items-center justify-center transition-colors">
                                 <svg class="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                             </div>
                         </div>
-                        <div>
-                            <span class="brand-logo-text text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-amber-300 bg-clip-text text-transparent">Briefly</span>
-                            <span class="brand-badge-text text-[10px] uppercase tracking-widest px-2 py-0.5 ml-2 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-semibold">AI Assistant</span>
+                        <div class="flex items-center shrink-0">
+                            <span class="brand-logo-text text-xl font-bold tracking-tight">Briefly</span>
+                            <span class="brand-badge-text text-[10px] uppercase tracking-wider px-2 py-0.5 ml-2 rounded-full whitespace-nowrap font-semibold">AI Assistant</span>
                         </div>
                     </a>
 
-                    <!-- Navigation Links -->
+                    <!-- Navigation Links (Admin, Designer, Requester) -->
                     @auth
-                        <nav class="hidden md:flex items-center gap-1 ml-8">
+                        <nav class="hidden md:flex items-center gap-1 ml-4 lg:ml-6 shrink min-w-0">
                             @if(auth()->user()->role === 'requester' || auth()->user()->role === 'admin' || auth()->user()->role === 'designer')
-                                <a href="{{ route('requester.create') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('requester.create') ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                                <a href="{{ route('requester.create') }}" class="nav-link-btn px-2.5 lg:px-3 py-1.5 rounded-lg text-xs lg:text-[13px] font-semibold whitespace-nowrap transition-all {{ request()->routeIs('requester.create') ? 'nav-link-active' : 'nav-link-idle' }}">
                                     + Input Brief
                                 </a>
-                                <a href="{{ route('requester.history') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('requester.history*') ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                                <a href="{{ route('requester.history') }}" class="nav-link-btn px-2.5 lg:px-3 py-1.5 rounded-lg text-xs lg:text-[13px] font-semibold whitespace-nowrap transition-all {{ request()->routeIs('requester.history*') ? 'nav-link-active' : 'nav-link-idle' }}">
                                     Status Brief
                                 </a>
                             @endif
 
                             @if(auth()->user()->role === 'designer' || auth()->user()->role === 'admin')
-                                <a href="{{ route('designer.dashboard') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('designer.*') ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
-                                    Review Dashboard (HITL)
+                                <a href="{{ route('designer.dashboard') }}" class="nav-link-btn px-2.5 lg:px-3 py-1.5 rounded-lg text-xs lg:text-[13px] font-semibold whitespace-nowrap transition-all {{ request()->routeIs('designer.*') ? 'nav-link-active-designer' : 'nav-link-idle' }}">
+                                    Review (HITL)
                                 </a>
                             @endif
 
                             @if(auth()->user()->role === 'admin')
-                                <a href="{{ route('admin.guidelines') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.guidelines*') ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
-                                    RAG & Brand Guidelines
+                                <a href="{{ route('admin.guidelines') }}" class="nav-link-btn px-2.5 lg:px-3 py-1.5 rounded-lg text-xs lg:text-[13px] font-semibold whitespace-nowrap transition-all {{ request()->routeIs('admin.guidelines*') ? 'nav-link-active-admin' : 'nav-link-idle' }}">
+                                    Brand Guidelines
                                 </a>
-                                <a href="{{ route('admin.settings') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings') ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                                <a href="{{ route('admin.settings') }}" class="nav-link-btn px-2.5 lg:px-3 py-1.5 rounded-lg text-xs lg:text-[13px] font-semibold whitespace-nowrap transition-all {{ request()->routeIs('admin.settings') ? 'nav-link-active' : 'nav-link-idle' }}">
                                     AI Config
                                 </a>
-                                <a href="{{ route('admin.users') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.users') ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                                <a href="{{ route('admin.users') }}" class="nav-link-btn px-2.5 lg:px-3 py-1.5 rounded-lg text-xs lg:text-[13px] font-semibold whitespace-nowrap transition-all {{ request()->routeIs('admin.users') ? 'nav-link-active' : 'nav-link-idle' }}">
                                     Users
                                 </a>
                             @endif
@@ -72,10 +72,10 @@
                 </div>
 
                 <!-- Right Side Actions & Role Switcher -->
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
                     <!-- Dark / Light Mode Switcher (All Roles) -->
                     <button id="theme-toggle-btn" type="button" aria-label="Ganti Mode Gelap / Terang" title="Ganti Mode Gelap / Terang"
-                        class="p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-amber-400 hover:text-amber-300 transition-all flex items-center justify-center cursor-pointer shadow-sm">
+                        class="p-2 rounded-xl transition-all flex items-center justify-center cursor-pointer shadow-sm">
                         <!-- Sun Icon (Active when dark mode) -->
                         <svg id="theme-icon-sun" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -89,49 +89,49 @@
                     @auth
                         <!-- Fast Role Switcher Dropdown (Dev & Grading Evaluator) -->
                         <div class="relative">
-                            <button id="quick-role-trigger" type="button" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-xs font-medium text-slate-200 transition-all">
+                            <button id="quick-role-trigger" type="button" class="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium transition-all">
                                 <span class="w-2 h-2 rounded-full {{ auth()->user()->role === 'admin' ? 'bg-amber-400 animate-pulse' : (auth()->user()->role === 'designer' ? 'bg-indigo-400' : 'bg-emerald-400') }}"></span>
-                                <span>Peran: <strong class="capitalize text-white">{{ auth()->user()->role }}</strong></span>
-                                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <span>Peran: <strong class="capitalize">{{ auth()->user()->role }}</strong></span>
+                                <svg class="w-3.5 h-3.5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
 
                             <!-- Switcher Dropdown Menu -->
-                            <div id="quick-role-dropdown" class="hidden absolute right-0 mt-2 w-64 rounded-xl bg-[#0F172A] border border-slate-700/80 shadow-2xl z-50 p-2">
-                                <div class="px-3 py-2 text-[11px] font-semibold tracking-wider text-slate-400 uppercase border-b border-slate-800 mb-1">
-                                    Ganti Cepat Akun Uji Coba
+                            <div id="quick-role-dropdown" class="hidden absolute right-0 mt-2 w-64 rounded-xl shadow-2xl z-50 p-2">
+                                <div class="dropdown-header px-3 py-2 text-[11px] font-semibold tracking-wider uppercase border-b mb-1">
+                                    GANTI CEPAT AKUN UJI COBA
                                 </div>
                                 
                                 <form method="POST" action="{{ route('switch.role') }}" class="space-y-1">
                                     @csrf
-                                    <button type="submit" name="role" value="admin" class="w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors {{ auth()->user()->role === 'admin' ? 'bg-amber-500/20 text-amber-300 font-semibold' : 'text-slate-300 hover:bg-slate-800' }}">
+                                    <button type="submit" name="role" value="admin" class="role-menu-item w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors {{ auth()->user()->role === 'admin' ? 'role-item-active-admin' : 'role-item-idle' }}">
                                         <div>
-                                            <div class="font-medium">Administrator</div>
-                                            <div class="text-[10px] text-slate-400">admin@himpunan.or.id</div>
+                                            <div class="role-title font-medium">Administrator</div>
+                                            <div class="role-sub text-[10px]">admin@himpunan.or.id</div>
                                         </div>
                                         @if(auth()->user()->role === 'admin')
-                                            <span class="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded">Aktif</span>
+                                            <span class="role-badge text-[10px] px-1.5 py-0.5 rounded font-semibold">Aktif</span>
                                         @endif
                                     </button>
 
-                                    <button type="submit" name="role" value="designer" class="w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors {{ auth()->user()->role === 'designer' ? 'bg-indigo-500/20 text-indigo-300 font-semibold' : 'text-slate-300 hover:bg-slate-800' }}">
+                                    <button type="submit" name="role" value="designer" class="role-menu-item w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors {{ auth()->user()->role === 'designer' ? 'role-item-active-designer' : 'role-item-idle' }}">
                                         <div>
-                                            <div class="font-medium">Lead Designer (HITL)</div>
-                                            <div class="text-[10px] text-slate-400">designer@himpunan.or.id</div>
+                                            <div class="role-title font-medium">Lead Designer (HITL)</div>
+                                            <div class="role-sub text-[10px]">designer@himpunan.or.id</div>
                                         </div>
                                         @if(auth()->user()->role === 'designer')
-                                            <span class="text-[10px] bg-indigo-400/20 text-indigo-300 px-1.5 py-0.5 rounded">Aktif</span>
+                                            <span class="role-badge text-[10px] px-1.5 py-0.5 rounded font-semibold">Aktif</span>
                                         @endif
                                     </button>
 
-                                    <button type="submit" name="role" value="requester" class="w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors {{ auth()->user()->role === 'requester' ? 'bg-emerald-500/20 text-emerald-300 font-semibold' : 'text-slate-300 hover:bg-slate-800' }}">
+                                    <button type="submit" name="role" value="requester" class="role-menu-item w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors {{ auth()->user()->role === 'requester' ? 'role-item-active-requester' : 'role-item-idle' }}">
                                         <div>
-                                            <div class="font-medium">Panitia Acara (Requester)</div>
-                                            <div class="text-[10px] text-slate-400">panitia@himpunan.or.id</div>
+                                            <div class="role-title font-medium">Panitia Acara (Requester)</div>
+                                            <div class="role-sub text-[10px]">panitia@himpunan.or.id</div>
                                         </div>
                                         @if(auth()->user()->role === 'requester')
-                                            <span class="text-[10px] bg-emerald-400/20 text-emerald-300 px-1.5 py-0.5 rounded">Aktif</span>
+                                            <span class="role-badge text-[10px] px-1.5 py-0.5 rounded font-semibold">Aktif</span>
                                         @endif
                                     </button>
                                 </form>
@@ -139,15 +139,15 @@
                         </div>
 
                         <!-- User Profile Info & Logout -->
-                        <div class="flex items-center gap-3 pl-3 border-l border-white/10">
-                            <div class="hidden sm:block text-right">
-                                <div class="text-xs font-semibold text-white">{{ auth()->user()->name }}</div>
-                                <div class="text-[10px] text-slate-400">{{ auth()->user()->email }}</div>
+                        <div class="flex items-center gap-2 sm:gap-2.5 pl-2 sm:pl-3 border-l border-slate-200 dark:border-white/10">
+                            <div class="hidden xl:block text-right">
+                                <div class="text-xs font-semibold text-slate-800 dark:text-white truncate max-w-[130px]">{{ auth()->user()->name }}</div>
+                                <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[130px]">{{ auth()->user()->email }}</div>
                             </div>
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" title="Keluar" class="p-2 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors">
+                                <button type="submit" title="Keluar" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                     </svg>

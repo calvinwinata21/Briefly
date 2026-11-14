@@ -1,7 +1,7 @@
 /**
- * Designer Review Actions & HITL Interaction Module
+ * Designer Mode: Review Actions & HITL Interaction Module
  */
-import { showToast } from './toast.js';
+import { showToast } from '../common/toast.js';
 
 export function initReviewActions() {
     // Copy Caption Button
@@ -104,13 +104,15 @@ export function initReviewActions() {
         }
     }
 
-    // Close modals on clicking backdrop
-    document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-        backdrop.addEventListener('click', (e) => {
-            if (e.target === backdrop) {
-                backdrop.closest('.modal-container')?.classList.add('hidden');
-                backdrop.closest('.modal-container')?.classList.remove('flex');
-                document.body.classList.remove('overflow-hidden');
+    // Live update slide headline & body when typing in edit mode
+    const slideEditInputs = document.querySelectorAll('[data-edit-slide-idx]');
+    slideEditInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            const idx = input.getAttribute('data-edit-slide-idx');
+            const field = input.getAttribute('data-edit-field');
+            const targetEl = document.querySelector(`[data-slide-target="${idx}"][data-field-target="${field}"]`);
+            if (targetEl) {
+                targetEl.textContent = input.value;
             }
         });
     });

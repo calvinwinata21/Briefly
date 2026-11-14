@@ -1,5 +1,5 @@
 /**
- * Elegant Toast Notification Module
+ * Global Toast Notification Utility
  */
 export function showToast(message, type = 'info', duration = 4000) {
     let container = document.getElementById('toast-container');
@@ -31,7 +31,7 @@ export function showToast(message, type = 'info', duration = 4000) {
     toast.innerHTML = `
         ${icon}
         <div class="flex-1">${message}</div>
-        <button class="toast-close text-slate-400 hover:text-white shrink-0 ml-2">
+        <button class="toast-close text-slate-400 hover:text-white shrink-0 ml-2" aria-label="Tutup notifikasi">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
     `;

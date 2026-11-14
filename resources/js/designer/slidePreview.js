@@ -1,5 +1,5 @@
 /**
- * Visual Carousel & Slide Preview Interactive Module
+ * Designer Mode: Visual Carousel & Slide Preview Interactive Module
  */
 export function initSlidePreview() {
     const carouselContainer = document.getElementById('slide-carousel');
@@ -98,19 +98,24 @@ export function initSlidePreview() {
         });
     }
 
-    // Keyboard navigation (Left / Right Arrow)
+    // Keyboard arrow keys navigation
     document.addEventListener('keydown', (e) => {
-        // Only if not focused in an input/textarea
-        if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+        // Do not trigger if typing in an input or textarea
+        if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
 
-        if (e.key === 'ArrowLeft' && currentSlide > 0) {
-            currentSlide--;
-            updateSlideVisibility();
-        } else if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
-            currentSlide++;
-            updateSlideVisibility();
+        if (e.key === 'ArrowLeft') {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideVisibility();
+            }
+        } else if (e.key === 'ArrowRight') {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideVisibility();
+            }
         }
     });
 
+    // Initialize first slide
     updateSlideVisibility();
 }

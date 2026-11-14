@@ -16,6 +16,7 @@ class Brief extends Model
         'user_id',
         'event_title',
         'raw_brief_text',
+        'tone',
         'status',
     ];
 

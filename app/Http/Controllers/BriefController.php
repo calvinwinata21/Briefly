@@ -28,6 +28,7 @@ class BriefController extends Controller
             'user_id' => Auth::id() ?? 3,
             'event_title' => $request->input('event_title'),
             'raw_brief_text' => $request->input('raw_brief_text'),
+            'tone' => $request->input('tone', 'casual_energetic'),
             'status' => 'pending',
         ]);
 
@@ -40,6 +41,41 @@ class BriefController extends Controller
 
         return redirect()->route('requester.history')
             ->with('success', 'Brief berhasil diproses oleh Agen AI! Draf kini diteruskan ke Lead Designer untuk peninjauan (HITL).');
+    }
+
+    /**
+     * Display the brief revision form with previous rejected draft context.
+     */
+    public function revise(Brief $brief): View
+    {
+        $brief->load(['latestDraft', 'user']);
+
+        return view('requester.create-brief', [
+            'reviseBrief' => $brief,
+        ]);
+    }
+
+    /**
+     * Submit revised brief and re-run AI Agent Orchestration.
+     */
+    public function submitRevision(StoreBriefRequest $request, Brief $brief, AiAgentOrchestrator $orchestrator): RedirectResponse
+    {
+        $brief->update([
+            'event_title' => $request->input('event_title'),
+            'raw_brief_text' => $request->input('raw_brief_text'),
+            'tone' => $request->input('tone', $brief->tone ?? 'casual_energetic'),
+            'status' => 'pending',
+        ]);
+
+        $result = $orchestrator->process($brief);
+
+        if ($result['status'] === 'incomplete_data') {
+            return redirect()->route('requester.show', $brief)
+                ->with('warning', "Revisi brief ditolak karena data masih tidak lengkap: {$result['message']}");
+        }
+
+        return redirect()->route('requester.show', $brief)
+            ->with('success', 'Revisi brief berhasil diproses oleh Agen AI! Draf telah diperbarui dan diteruskan ke Lead Designer untuk peninjauan (HITL).');
     }
 
     /**

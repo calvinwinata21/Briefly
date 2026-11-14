@@ -50,21 +50,21 @@
         </div>
 
         <!-- Status Filter Tabs -->
-        <div class="flex items-center gap-2 border-b border-white/5 pb-2">
+        <div class="flex items-center gap-2 border-b border-slate-200 dark:border-white/5 pb-2 overflow-x-auto">
             <a href="{{ route('designer.dashboard', ['status' => 'all']) }}"
-                class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {{ $statusFilter === 'all' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                class="filter-tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all {{ $statusFilter === 'all' ? 'filter-tab-active-all' : 'filter-tab-idle' }}">
                 Semua Draf ({{ $stats['total'] }})
             </a>
             <a href="{{ route('designer.dashboard', ['status' => 'PENDING_REVIEW']) }}"
-                class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {{ $statusFilter === 'PENDING_REVIEW' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                class="filter-tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all {{ $statusFilter === 'PENDING_REVIEW' ? 'filter-tab-active-pending' : 'filter-tab-idle' }}">
                 Menunggu Review ({{ $stats['pending'] }})
             </a>
             <a href="{{ route('designer.dashboard', ['status' => 'APPROVED']) }}"
-                class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {{ $statusFilter === 'APPROVED' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                class="filter-tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all {{ $statusFilter === 'APPROVED' ? 'filter-tab-active-approved' : 'filter-tab-idle' }}">
                 Disetujui ({{ $stats['approved'] }})
             </a>
             <a href="{{ route('designer.dashboard', ['status' => 'REJECTED']) }}"
-                class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all {{ $statusFilter === 'REJECTED' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                class="filter-tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all {{ $statusFilter === 'REJECTED' ? 'filter-tab-active-rejected' : 'filter-tab-idle' }}">
                 Ditolak ({{ $stats['rejected'] }})
             </a>
         </div>
@@ -95,23 +95,45 @@
                         <!-- Card Top Info -->
                         <div>
                             <div class="flex items-center justify-between gap-2 mb-3">
-                                <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
-                                    {{ $jobId }}
-                                </span>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                                        {{ $jobId }}
+                                    </span>
+                                    @if($draft->brief->mediaDrafts()->count() > 1)
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold" title="Pengajuan revisi dari pemohon">
+                                            v{{ $draft->brief->mediaDrafts()->count() }}
+                                        </span>
+                                    @endif
+                                </div>
 
-                                @if($draft->approval_status === 'APPROVED')
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                                        ● Disetujui
-                                    </span>
-                                @elseif($draft->approval_status === 'REJECTED')
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                                        ● Ditolak
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                                        ● Perlu Review
-                                    </span>
-                                @endif
+                                <div class="flex items-center gap-1.5">
+                                    @if($draft->brief->tone)
+                                        @php
+                                            $tBadge = match($draft->brief->tone) {
+                                                'formal_academic' => ['🎓', 'text-amber-300'],
+                                                'persuasive_urgent' => ['🔥', 'text-rose-300'],
+                                                default => ['⚡', 'text-indigo-300'],
+                                            };
+                                        @endphp
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 {{ $tBadge[1] }}" title="Tone: {{ $draft->brief->tone }}">
+                                            {{ $tBadge[0] }}
+                                        </span>
+                                    @endif
+
+                                    @if($draft->approval_status === 'APPROVED')
+                                        <span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                            ● Disetujui
+                                        </span>
+                                    @elseif($draft->approval_status === 'REJECTED')
+                                        <span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                                            ● Ditolak
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                            ● Perlu Review
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
 
                             <h3 class="text-base font-bold text-white group-hover:text-indigo-300 transition-colors line-clamp-2">

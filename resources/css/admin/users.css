@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Admin Mode: RBAC Matrix & User Management Styles
+   ========================================================================== */
+
+/* RBAC Matrix Cards (Dark Default) */
+.rbac-card-admin {
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.rbac-card-designer {
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.rbac-card-requester {
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+/* Light Mode Overrides for RBAC Matrix Cards */
+html:not(.dark) .border-amber-500\/30,
+html.light .border-amber-500\/30 {
+    background-color: #FFFBEB !important;
+    border-color: #FDE68A !important;
+}
+
+html:not(.dark) .border-indigo-500\/30,
+html.light .border-indigo-500\/30 {
+    background-color: #EEF2FF !important;
+    border-color: #C7D2FE !important;
+}
+
+html:not(.dark) .border-emerald-500\/30,
+html.light .border-emerald-500\/30 {
+    background-color: #F0FDF4 !important;
+    border-color: #A7F3D0 !important;
+}

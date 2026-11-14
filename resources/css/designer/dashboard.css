@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Designer Mode: Review Dashboard (HITL) & Status Filter Tabs
+   ========================================================================== */
+
+/* Filter Tab Buttons Base (Dark Default) */
+.filter-tab-btn {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-tab-active-all {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.filter-tab-active-pending {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: #FCD34D;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.filter-tab-active-approved {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #6EE7B7;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.filter-tab-active-rejected {
+    background-color: rgba(244, 63, 94, 0.2);
+    color: #FDA4AF;
+    border: 1px solid rgba(244, 63, 94, 0.35);
+}
+
+.filter-tab-idle {
+    color: #94A3B8;
+}
+
+.filter-tab-idle:hover {
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ==========================================================================
+   Dashboard Light Mode Overrides
+   ========================================================================== */
+html:not(.dark) .filter-tab-active-all,
+html.light .filter-tab-active-all {
+    background-color: #003366 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #002244 !important;
+    box-shadow: 0 2px 8px rgba(0, 51, 102, 0.28) !important;
+    font-weight: 700 !important;
+}
+
+html:not(.dark) .filter-tab-active-pending,
+html.light .filter-tab-active-pending {
+    background-color: #FEF3C7 !important;
+    color: #92400E !important;
+    border: 1px solid #FCD34D !important;
+    font-weight: 700 !important;
+}
+
+html:not(.dark) .filter-tab-active-approved,
+html.light .filter-tab-active-approved {
+    background-color: #DCFCE7 !important;
+    color: #166534 !important;
+    border: 1px solid #86EFAC !important;
+    font-weight: 700 !important;
+}
+
+html:not(.dark) .filter-tab-active-rejected,
+html.light .filter-tab-active-rejected {
+    background-color: #FFE4E6 !important;
+    color: #9F1239 !important;
+    border: 1px solid #FDA4AF !important;
+    font-weight: 700 !important;
+}
+
+html:not(.dark) .filter-tab-idle,
+html.light .filter-tab-idle {
+    color: #64748B !important;
+    background-color: transparent !important;
+}
+
+html:not(.dark) .filter-tab-idle:hover,
+html.light .filter-tab-idle:hover {
+    background-color: #F1F5F9 !important;
+    color: #0F172A !important;
+}

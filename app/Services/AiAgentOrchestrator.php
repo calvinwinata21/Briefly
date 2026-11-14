@@ -84,11 +84,12 @@ class AiAgentOrchestrator
         $maxRetries = 3;
         $attempt = 0;
         $validData = null;
+        $tone = $brief->tone ?? 'casual_energetic';
 
         while ($attempt < $maxRetries) {
             $attempt++;
 
-            $generatedOutput = $this->generateContent($parsedEntities, $ragResult);
+            $generatedOutput = $this->generateContent($parsedEntities, $ragResult, $tone);
             $validation = $this->validateAction->execute($generatedOutput);
 
             if ($validation['is_valid']) {
@@ -99,7 +100,7 @@ class AiAgentOrchestrator
 
         // If after 3 retries still has format discrepancy, sanitize with deterministic generator
         if (! $validData) {
-            $validData = $this->buildGuaranteedValidPayload($parsedEntities, $ragResult);
+            $validData = $this->buildGuaranteedValidPayload($parsedEntities, $ragResult, $tone);
         }
 
         // Attach RAG context telemetry for designer transparency
@@ -132,10 +133,17 @@ class AiAgentOrchestrator
     /**
      * Generate content via Gemini API or intelligent structured builder.
      */
-    protected function generateContent(array $entities, array $rag): array
+    protected function generateContent(array $entities, array $rag, string $tone = 'casual_energetic'): array
     {
         $branding = $rag['branding'];
         $ragExcerpts = implode("\n- ", array_column($rag['rag_chunks'], 'content'));
+
+        $toneDescriptions = [
+            'formal_academic' => 'Formal, edukatif, berwibawa, dan elegan tanpa slang.',
+            'persuasive_urgent' => 'Persuasif, mendesak (FOMO kuota terbatas), ajakan bertindak kuat dan tegas.',
+            'casual_energetic' => 'Kasual, energik, bersahabat khas mahasiswa, serta penuh antusiasme positif.',
+        ];
+        $activeToneDescription = $toneDescriptions[$tone] ?? $toneDescriptions['casual_energetic'];
 
         $systemInstruction = 'You are an expert Social Media & Graphic Content Production AI Agent.
 Output ONLY strict JSON conforming to this schema without markdown fences:
@@ -163,7 +171,9 @@ Output ONLY strict JSON conforming to this schema without markdown fences:
     "hook_sentence": string,
     "body_paragraph": string,
     "call_to_action": string,
-    "hashtags": [string]
+    "hashtags": [string],
+    "whatsapp_broadcast": string,
+    "linkedin_post": string
   },
   "workflow_status": "PENDING_REVIEW"
 }';
@@ -173,6 +183,7 @@ Date: {$entities['event_date']}
 Target: {$entities['target_audience']}
 Highlights: ".implode(', ', $entities['key_highlights'])."
 Contact: {$entities['contact_person']}
+Tone of Voice: {$tone} ({$activeToneDescription})
 
 Brand Guidelines & SOP retrieved from RAG:
 Primary Color: {$branding['primary_color_hex']}
@@ -191,16 +202,24 @@ Relevant SOP Chunks:
             $geminiResult['branding_rules_applied']['secondary_color_hex'] = $branding['secondary_color_hex'];
             $geminiResult['workflow_status'] = 'PENDING_REVIEW';
 
+            // Ensure multi-channel channels exist
+            if (empty($geminiResult['social_media_caption']['whatsapp_broadcast'])) {
+                $geminiResult['social_media_caption']['whatsapp_broadcast'] = $this->buildWhatsAppBroadcast($entities, $tone);
+            }
+            if (empty($geminiResult['social_media_caption']['linkedin_post'])) {
+                $geminiResult['social_media_caption']['linkedin_post'] = $this->buildLinkedInPost($entities, $tone, $geminiResult['social_media_caption']['hashtags'] ?? []);
+            }
+
             return $geminiResult;
         }
 
-        return $this->buildGuaranteedValidPayload($entities, $rag);
+        return $this->buildGuaranteedValidPayload($entities, $rag, $tone);
     }
 
     /**
      * Deterministic, guaranteed valid generator strictly adhering to the JSON schema.
      */
-    protected function buildGuaranteedValidPayload(array $entities, array $rag): array
+    protected function buildGuaranteedValidPayload(array $entities, array $rag, string $tone = 'casual_energetic'): array
     {
         $branding = $rag['branding'];
         $name = Str::limit($entities['event_name'], 40, '');
@@ -213,6 +232,27 @@ Relevant SOP Chunks:
         $listHeadline = Str::limit('Poin Utama & Manfaat Acara', 45);
         $quoteHeadline = Str::limit('Kenapa Kamu Wajib Ikutan?', 45);
         $ctaHeadline = Str::limit('Registrasi & Info Lengkap', 45);
+
+        // Tone-sensitive copy
+        [$hookSentence, $bodyParagraph, $ctaText] = match ($tone) {
+            'formal_academic' => [
+                "Tingkatkan wawasan dan kapabilitas profesional Anda dalam agenda {$name}.",
+                "Civitas akademika dan mahasiswa sekalian diundang untuk menghadiri program komprehensif '{$name}' pada {$date}. Menghadirkan materi mendalam serta telaah praktis terkini untuk menunjang daya saing keilmuan.",
+                "Pendaftaran resmi dibuka. Untuk konfirmasi partisipasi dan info silakan hubungi {$cp}.",
+            ],
+            'persuasive_urgent' => [
+                "KESEMPATAN TERBATAS! Kuota pendaftaran {$name} hampir habis!",
+                "Jangan biarkan dirimu tertinggal! Acara '{$name}' akan dimulai pada {$date}. Dapatkan materi eksklusif, sertifikat resmi, dan peluang jejaring yang jarang terjadi.",
+                "Amankan slot kehadiranmu detik ini juga sebelum registrasi ditutup total! Hubungi narahubung resmi di {$cp}.",
+            ],
+            default => [
+                "Siap tingkatkan potensimu? Inilah saatnya bergabung di {$name}!",
+                "Halo rekan-rekan! Kami mengundang kalian untuk hadir dalam kegiatan '{$name}' yang akan diselenggarakan pada {$date}. Dapatkan wawasan berharga, relasi baru, serta pengalaman inspiratif bersama narasumber berpengalaman.",
+                "Segera amankan kursimu sebelum kuota terpenuhi! Hubungi {$cp} atau klik tautan di bio profil kami.",
+            ],
+        };
+
+        $hashtags = ! empty($branding['hashtag_rules']) ? $branding['hashtag_rules'] : ['#EventKampus2026', '#InformatikaJaya', '#MediaProduction', '#Kepanitiaan'];
 
         return [
             'job_id' => 'JOB-'.strtoupper(Str::random(8)),
@@ -268,12 +308,98 @@ Relevant SOP Chunks:
                 ],
             ],
             'social_media_caption' => [
-                'hook_sentence' => "Siap tingkatkan potensimu? Inilah saatnya bergabung di {$name}!",
-                'body_paragraph' => "Halo rekan-rekan! Kami mengundang kalian untuk hadir dalam kegiatan '{$name}' yang akan diselenggarakan pada {$date}. Dapatkan wawasan berharga, relasi baru, serta pengalaman inspiratif bersama narasumber berpengalaman.",
-                'call_to_action' => "Segera amankan kursimu sebelum kuota terpenuhi! Hubungi {$cp} atau klik tautan di bio profil kami.",
-                'hashtags' => ! empty($branding['hashtag_rules']) ? $branding['hashtag_rules'] : ['#EventKampus2026', '#InformatikaJaya', '#MediaProduction', '#Kepanitiaan'],
+                'hook_sentence' => $hookSentence,
+                'body_paragraph' => $bodyParagraph,
+                'call_to_action' => $ctaText,
+                'hashtags' => $hashtags,
+                'whatsapp_broadcast' => $this->buildWhatsAppBroadcast($entities, $tone),
+                'linkedin_post' => $this->buildLinkedInPost($entities, $tone, $hashtags),
             ],
             'workflow_status' => 'PENDING_REVIEW',
         ];
+    }
+
+    /**
+     * Build structured WhatsApp Broadcast copy with clean markdown bold & emojis.
+     */
+    protected function buildWhatsAppBroadcast(array $entities, string $tone): string
+    {
+        $name = $entities['event_name'];
+        $date = $entities['event_date'];
+        $target = $entities['target_audience'] ?: 'Mahasiswa & Civitas Kampus';
+        $cp = $entities['contact_person'] ?: 'Panitia Acara';
+        $highlights = $entities['key_highlights'];
+
+        $greeting = match ($tone) {
+            'formal_academic' => "Salam sejahtera untuk rekan-rekan mahasiswa dan civitas akademika sekalian.\n\nDengan hormat, kami bermaksud mengundang partisipasi Anda dalam agenda resmi:",
+            'persuasive_urgent' => "🚨 *PEMBERITAHUAN MENDESAK - KUOTA TERBATAS!* 🚨\n\nJangan lewatkan kesempatan terakhir untuk bergabung dalam:",
+            default => "Halo Rekan-rekan Semua! 👋\n\nAda kabar menarik dan agenda bermanfaat yang tidak boleh kalian lewatkan:",
+        };
+
+        $pointsList = '';
+        if (! empty($highlights)) {
+            foreach (array_slice($highlights, 0, 3) as $h) {
+                $pointsList .= "• {$h}\n";
+            }
+        } else {
+            $pointsList = "• Sesi pemaparan materi dari narasumber kompeten\n• Diskusi interaktif & tanya jawab langsung\n• E-Certificate resmi dan jejaring komunitas\n";
+        }
+
+        return "📢 *[PENGUMUMAN RESMI / BROADCAST]*\n*".strtoupper($name)."*\n\n"
+            ."{$greeting}\n\n"
+            ."📌 *DETAIL ACARA:*\n"
+            ."• *Nama Kegiatan:* {$name}\n"
+            ."• *Waktu / Tanggal:* {$date}\n"
+            ."• *Sasaran Peserta:* {$target}\n\n"
+            ."✨ *HIGHLIGHT & MANFAAT:*\n"
+            ."{$pointsList}\n"
+            ."🔗 *PENDAFTARAN & NARAHUBUNG:*\n"
+            ."Segera amankan kursi Anda sebelum pendaftaran ditutup!\n"
+            ."📲 Kontak Info: *{$cp}*\n\n"
+            .'_Diteruskan secara resmi oleh Divisi Media & Publikasi._';
+    }
+
+    /**
+     * Build professional LinkedIn post with structured paragraphs and business hashtags.
+     */
+    protected function buildLinkedInPost(array $entities, string $tone, array $hashtags = []): string
+    {
+        $name = $entities['event_name'];
+        $date = $entities['event_date'];
+        $target = $entities['target_audience'] ?: 'Students and Professionals';
+        $cp = $entities['contact_person'] ?: 'Organizing Committee';
+        $highlights = $entities['key_highlights'];
+
+        $intro = match ($tone) {
+            'formal_academic' => "Continuous professional development and intellectual discourse are vital drivers of excellence. We are pleased to announce the official program: \"{$name}\".",
+            'persuasive_urgent' => "Opportunities favor those who take initiative before the window closes. Final registration slots are now open for \"{$name}\"!",
+            default => "Excited to share our upcoming student initiative and learning experience: \"{$name}\"! 🚀",
+        };
+
+        $points = '';
+        if (! empty($highlights)) {
+            foreach (array_slice($highlights, 0, 3) as $h) {
+                $points .= "🔹 {$h}\n";
+            }
+        } else {
+            $points = "🔹 In-depth perspective on modern industry practices\n🔹 Practical actionable insights\n🔹 Expanded networking across student & academic spheres\n";
+        }
+
+        $cleanHashtags = array_map(function ($tag) {
+            return str_starts_with($tag, '#') ? $tag : '#'.$tag;
+        }, $hashtags);
+        if (empty($cleanHashtags)) {
+            $cleanHashtags = ['#ProfessionalDevelopment', '#CampusCommunity', '#TechLeadership', '#HigherEducation'];
+        }
+
+        return "{$intro}\n\n"
+            ."Event Overview:\n"
+            ."📅 Date: {$date}\n"
+            ."🎯 Target Audience: {$target}\n\n"
+            ."Key Takeaways:\n"
+            ."{$points}\n"
+            ."We warmly welcome participants to collaborate, learn, and grow together.\n\n"
+            ."📩 Inquiries & Registration: {$cp}\n\n"
+            .implode(' ', array_slice($cleanHashtags, 0, 5));
     }
 }

@@ -26,8 +26,6 @@ export function initThemeToggle() {
             if (moonIcon) moonIcon.classList.add('hidden');
             if (toggleBtn) {
                 toggleBtn.setAttribute('title', 'Beralih ke Mode Terang');
-                toggleBtn.classList.remove('text-indigo-600', 'bg-slate-100', 'border-slate-300');
-                toggleBtn.classList.add('text-amber-400', 'bg-slate-800/80', 'border-slate-700');
             }
         } else {
             document.documentElement.classList.remove('dark');
@@ -37,8 +35,6 @@ export function initThemeToggle() {
             if (moonIcon) moonIcon.classList.remove('hidden');
             if (toggleBtn) {
                 toggleBtn.setAttribute('title', 'Beralih ke Mode Gelap');
-                toggleBtn.classList.remove('text-amber-400', 'bg-slate-800/80', 'border-slate-700');
-                toggleBtn.classList.add('text-indigo-600', 'bg-slate-100', 'border-slate-300');
             }
         }
 

@@ -1,14 +1,23 @@
-<x-layouts.app title="Input Brief Acara — Briefly AI">
+<x-layouts.app title="{{ isset($reviseBrief) ? 'Revisi Brief #' . $reviseBrief->id : 'Input Brief Acara' }} — Briefly AI">
     <div class="max-w-4xl mx-auto space-y-6">
         <!-- Header Banner -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-white/10">
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                    <span>Input Brief Acara / Konten</span>
-                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">Step 1 — Requester</span>
+                    @if(isset($reviseBrief))
+                        <span>Perbaiki / Revisi Brief Acara</span>
+                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 font-semibold">Revisi Siklus (HITL)</span>
+                    @else
+                        <span>Input Brief Acara / Konten</span>
+                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">Step 1 — Requester</span>
+                    @endif
                 </h1>
                 <p class="text-xs text-slate-400 mt-1">
-                    Kirimkan teks mentah kegiatan kepanitiaan Anda. Agen AI akan mereferensikan Brand Guideline kampus dan membuat draft visual serta caption.
+                    @if(isset($reviseBrief))
+                        Perbarui informasi brief berdasarkan catatan Lead Designer agar Agen AI dapat menghasilkan draf baru yang sesuai standar.
+                    @else
+                        Kirimkan teks mentah kegiatan kepanitiaan Anda. Agen AI akan mereferensikan Brand Guideline kampus dan membuat draft visual serta caption multi-channel.
+                    @endif
                 </p>
             </div>
 
@@ -19,35 +28,50 @@
             </div>
         </div>
 
-        <!-- Quick Sample Brief Templates -->
-        <div class="glass-panel rounded-2xl p-4">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                    <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        @if(isset($reviseBrief))
+            <!-- Revision Context Alert -->
+            <div class="p-4 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-amber-200 text-xs space-y-2">
+                <div class="font-bold flex items-center gap-2 text-amber-300">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
-                    Muat Contoh Brief Cepat (Klik untuk Isi Otomatis)
-                </span>
-                <span class="text-[11px] text-slate-400">Pilih salah satu untuk pengujian instan</span>
+                    <span>Catatan Review dari Desainer / Sistem:</span>
+                </div>
+                <p class="pl-6 text-slate-200 leading-relaxed font-mono">
+                    {{ $reviseBrief->latestDraft?->designer_feedback ?? 'Mohon lengkapi nama acara eksplisit, tanggal kegiatan, dan kontak narahubung panitia.' }}
+                </p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                <button type="button" data-template="seminar" class="template-btn text-left p-3 rounded-xl bg-slate-900/60 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/40 transition-all group">
-                    <div class="text-xs font-semibold text-indigo-300 group-hover:text-indigo-200">🎓 Seminar Teknologi</div>
-                    <div class="text-[11px] text-slate-400 mt-1 line-clamp-1">Seminar Future of Agentic AI</div>
-                </button>
-                <button type="button" data-template="lomba" class="template-btn text-left p-3 rounded-xl bg-slate-900/60 hover:bg-amber-950/40 border border-slate-800 hover:border-amber-500/40 transition-all group">
-                    <div class="text-xs font-semibold text-amber-300 group-hover:text-amber-200">🏆 Hackathon & Lomba</div>
-                    <div class="text-[11px] text-slate-400 mt-1 line-clamp-1">Campus Hackathon 2026</div>
-                </button>
-                <button type="button" data-template="oprec" class="template-btn text-left p-3 rounded-xl bg-slate-900/60 hover:bg-emerald-950/40 border border-slate-800 hover:border-emerald-500/40 transition-all group">
-                    <div class="text-xs font-semibold text-emerald-300 group-hover:text-emerald-200">📢 Open Recruitment</div>
-                    <div class="text-[11px] text-slate-400 mt-1 line-clamp-1">Relawan Tim Media & Kreatif</div>
-                </button>
+        @else
+            <!-- Quick Sample Brief Templates -->
+            <div class="glass-panel rounded-2xl p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Muat Contoh Brief Cepat (Klik untuk Isi Otomatis)
+                    </span>
+                    <span class="text-[11px] text-slate-400">Pilih salah satu untuk pengujian instan</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <button type="button" data-template="seminar" class="template-btn text-left p-3 rounded-xl bg-slate-900/60 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/40 transition-all group">
+                        <div class="text-xs font-semibold text-indigo-300 group-hover:text-indigo-200">🎓 Seminar Teknologi</div>
+                        <div class="text-[11px] text-slate-400 mt-1 line-clamp-1">Seminar Future of Agentic AI</div>
+                    </button>
+                    <button type="button" data-template="lomba" class="template-btn text-left p-3 rounded-xl bg-slate-900/60 hover:bg-amber-950/40 border border-slate-800 hover:border-amber-500/40 transition-all group">
+                        <div class="text-xs font-semibold text-amber-300 group-hover:text-amber-200">🏆 Hackathon & Lomba</div>
+                        <div class="text-[11px] text-slate-400 mt-1 line-clamp-1">Campus Hackathon 2026</div>
+                    </button>
+                    <button type="button" data-template="oprec" class="template-btn text-left p-3 rounded-xl bg-slate-900/60 hover:bg-emerald-950/40 border border-slate-800 hover:border-emerald-500/40 transition-all group">
+                        <div class="text-xs font-semibold text-emerald-300 group-hover:text-emerald-200">📢 Open Recruitment</div>
+                        <div class="text-[11px] text-slate-400 mt-1 line-clamp-1">Relawan Tim Media & Kreatif</div>
+                    </button>
+                </div>
             </div>
-        </div>
+        @endif
 
         <!-- Main Submission Form -->
-        <form id="brief-form" method="POST" action="{{ route('requester.store') }}" class="glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <form id="brief-form" method="POST" action="{{ isset($reviseBrief) ? route('requester.revise.post', $reviseBrief) : route('requester.store') }}" class="glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
             @csrf
 
             <!-- Event Title -->
@@ -55,12 +79,45 @@
                 <label for="event_title" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
                     Judul Acara / Topik Konten <span class="text-rose-400">*</span>
                 </label>
-                <input type="text" id="event_title" name="event_title" value="{{ old('event_title') }}" required
+                <input type="text" id="event_title" name="event_title" value="{{ old('event_title', $reviseBrief->event_title ?? '') }}" required
                     class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm transition-all"
                     placeholder="contoh: National Tech Seminar: Future of Agentic AI 2026">
                 @error('event_title')
                     <p class="text-rose-400 text-xs mt-1.5">{{ $message }}</p>
                 @enderror
+            </div>
+
+            <!-- Tone of Voice Selector -->
+            <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                    Gaya Bahasa & Nada Komunikasi (Tone of Voice)
+                </label>
+                @php
+                    $selectedTone = old('tone', $reviseBrief->tone ?? 'casual_energetic');
+                @endphp
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                    <label class="flex items-center gap-2 p-3 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-indigo-500 cursor-pointer transition-all">
+                        <input type="radio" name="tone" value="casual_energetic" {{ $selectedTone === 'casual_energetic' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500">
+                        <div>
+                            <div class="font-semibold text-indigo-300">⚡ Kasual & Energik</div>
+                            <div class="text-[11px] text-slate-400 mt-0.5">Lomba, Festival, Gathering</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-2 p-3 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-indigo-500 cursor-pointer transition-all">
+                        <input type="radio" name="tone" value="formal_academic" {{ $selectedTone === 'formal_academic' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500">
+                        <div>
+                            <div class="font-semibold text-amber-300">🎓 Formal & Akademik</div>
+                            <div class="text-[11px] text-slate-400 mt-0.5">Seminar, Kuliah Tamu, Workshop</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-2 p-3 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-indigo-500 cursor-pointer transition-all">
+                        <input type="radio" name="tone" value="persuasive_urgent" {{ $selectedTone === 'persuasive_urgent' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500">
+                        <div>
+                            <div class="font-semibold text-rose-300">🔥 Persuasif & Urgent</div>
+                            <div class="text-[11px] text-slate-400 mt-0.5">Oprec, Deadline Pendaftaran</div>
+                        </div>
+                    </label>
+                </div>
             </div>
 
             <!-- Raw Brief Textarea -->
@@ -76,7 +133,7 @@
                 </p>
                 <textarea id="raw_brief_text" name="raw_brief_text" rows="10" required
                     class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm leading-relaxed transition-all font-mono"
-                    placeholder="Tempel atau ketik teks mentah acara di sini...">{{ old('raw_brief_text') }}</textarea>
+                    placeholder="Tempel atau ketik teks mentah acara di sini...">{{ old('raw_brief_text', $reviseBrief->raw_brief_text ?? '') }}</textarea>
                 @error('raw_brief_text')
                     <p class="text-rose-400 text-xs mt-1.5">{{ $message }}</p>
                 @enderror
@@ -88,8 +145,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div class="space-y-1">
-                    <div class="text-slate-200 font-medium">Alur Human-in-the-Loop (HITL):</div>
-                    <div>Setelah Anda mengirim form ini, AI Orchestrator akan memproses brief, lalu draf akan masuk ke antrean verifikasi <strong>Lead Designer Specialist</strong> sebelum disetujui untuk dipublikasikan.</div>
+                    <div class="text-slate-200 font-medium">Alur Human-in-the-Loop (HITL) & Multi-Channel Copy:</div>
+                    <div>AI Orchestrator akan memproses brief menjadi draf slide korsel, caption Instagram, broadcast WhatsApp, serta postingan LinkedIn, lalu diteruskan ke <strong>Lead Designer Specialist</strong> untuk verifikasi.</div>
                 </div>
             </div>
 
@@ -99,7 +156,7 @@
                     <svg class="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    <span>Kirim & Jalankan Agen AI</span>
+                    <span>{{ isset($reviseBrief) ? 'Kirim Revisi Brief ke Agen AI' : 'Kirim & Jalankan Agen AI' }}</span>
                 </button>
             </div>
         </form>
@@ -135,7 +192,7 @@
                 </div>
                 <div class="flex items-center gap-2 text-cyan-300">
                     <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                    <span>Content & Slide Generator + Schema Guardrails</span>
+                    <span>Multi-Channel Content + Schema Guardrails</span>
                 </div>
             </div>
         </div>

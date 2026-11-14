@@ -108,6 +108,68 @@ class MediaProductionSystemTest extends TestCase
         $responseMd->assertStatus(200);
     }
 
+    public function test_requester_can_submit_brief_with_tone_and_generate_multichannel_copy(): void
+    {
+        $panitia = User::where('role', 'requester')->first();
+
+        $response = $this->actingAs($panitia)->post(route('requester.store'), [
+            'event_title' => 'Webinar AI for Students 2026',
+            'raw_brief_text' => "Acara: Webinar AI for Students\nTanggal: 20 November 2026\nNarahubung: 0812-9988-7766\nPembicara: AI Researcher",
+            'tone' => 'formal_academic',
+        ]);
+
+        $response->assertRedirect(route('requester.history'));
+        $brief = Brief::where('event_title', 'Webinar AI for Students 2026')->first();
+        $this->assertEquals('formal_academic', $brief->tone);
+
+        $caption = $brief->latestDraft->ai_output_json['social_media_caption'];
+        $this->assertArrayHasKey('whatsapp_broadcast', $caption);
+        $this->assertArrayHasKey('linkedin_post', $caption);
+        $this->assertNotEmpty($caption['whatsapp_broadcast']);
+        $this->assertNotEmpty($caption['linkedin_post']);
+    }
+
+    public function test_requester_can_revise_and_resubmit_rejected_brief(): void
+    {
+        $panitia = User::where('role', 'requester')->first();
+        $designer = User::where('role', 'designer')->first();
+
+        // 1. Submit initial brief
+        $this->actingAs($panitia)->post(route('requester.store'), [
+            'event_title' => 'Initial Hackathon 2026',
+            'raw_brief_text' => "Acara: Initial Hackathon\nTanggal: 15 Desember 2026\nNarahubung: 0812-1111-2222",
+        ]);
+
+        $brief = Brief::where('event_title', 'Initial Hackathon 2026')->first();
+        $initialDraft = $brief->latestDraft;
+
+        // 2. Designer rejects draft
+        $this->actingAs($designer)->post(route('designer.reject', $initialDraft), [
+            'designer_feedback' => 'Tolong tambahkan target peserta spesifik.',
+        ]);
+
+        $initialDraft->refresh();
+        $this->assertEquals('REJECTED', $initialDraft->approval_status);
+
+        // 3. Requester visits revision page
+        $revisionPage = $this->actingAs($panitia)->get(route('requester.revise', $brief));
+        $revisionPage->assertStatus(200);
+
+        // 4. Requester submits revision
+        $resubmitResponse = $this->actingAs($panitia)->post(route('requester.revise.post', $brief), [
+            'event_title' => 'Initial Hackathon 2026 (Revised)',
+            'raw_brief_text' => "Acara: Initial Hackathon 2026 (Revised)\nTanggal: 15 Desember 2026\nTarget: Mahasiswa Semester 3 ke atas\nNarahubung: 0812-1111-2222",
+            'tone' => 'persuasive_urgent',
+        ]);
+
+        $resubmitResponse->assertRedirect(route('requester.show', $brief));
+
+        $brief->refresh();
+        $this->assertEquals(2, $brief->mediaDrafts()->count());
+        $this->assertEquals('PENDING_REVIEW', $brief->latestDraft->approval_status);
+        $this->assertEquals('persuasive_urgent', $brief->tone);
+    }
+
     public function test_admin_can_access_guidelines_and_settings(): void
     {
         $admin = User::where('role', 'admin')->first();

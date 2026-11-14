@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Requester Mode: Brief Creation Form, Quick Templates & AI Generation Overlay
+   ========================================================================== */
+
+/* Quick Sample Template Buttons (Dark Default) */
+.template-btn {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.template-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* AI Generation Loading Overlay */
+#ai-loading-overlay {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* ==========================================================================
+   Brief Form Light Mode Overrides
+   ========================================================================== */
+html:not(.dark) .template-btn,
+html.light .template-btn {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+}
+
+html:not(.dark) .template-btn:hover,
+html.light .template-btn:hover {
+    background-color: #F8FAFC !important;
+    border-color: #A5B4FC !important;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.08) !important;
+}
+
+html:not(.dark) #ai-loading-overlay,
+html.light #ai-loading-overlay {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    color: #0F172A !important;
+}

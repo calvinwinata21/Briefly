@@ -40,6 +40,8 @@ Route::middleware(['auth', 'role:requester,designer,admin'])->prefix('requester'
     Route::post('/briefs', [BriefController::class, 'store'])->name('store');
     Route::get('/history', [BriefController::class, 'index'])->name('history');
     Route::get('/briefs/{brief}', [BriefController::class, 'show'])->name('show');
+    Route::get('/briefs/{brief}/revise', [BriefController::class, 'revise'])->name('revise');
+    Route::post('/briefs/{brief}/revise', [BriefController::class, 'submitRevision'])->name('revise.post');
 });
 
 // Designer Group (Lead Designer Specialist / HITL Review)

@@ -112,6 +112,13 @@ class DesignerReviewController extends Controller
         $payload['social_media_caption']['call_to_action'] = $request->input('call_to_action');
         $payload['social_media_caption']['hashtags'] = $hashtags;
 
+        if ($request->filled('whatsapp_broadcast')) {
+            $payload['social_media_caption']['whatsapp_broadcast'] = $request->input('whatsapp_broadcast');
+        }
+        if ($request->filled('linkedin_post')) {
+            $payload['social_media_caption']['linkedin_post'] = $request->input('linkedin_post');
+        }
+
         // Update slide headlines if provided
         if ($request->has('slides') && is_array($request->input('slides'))) {
             foreach ($request->input('slides') as $index => $slideData) {
@@ -153,11 +160,21 @@ class DesignerReviewController extends Controller
             $content .= "- Secondary Color: `{$payload['branding_rules_applied']['secondary_color_hex']}`\n";
             $content .= "- Font Family: `{$payload['branding_rules_applied']['font_family_recommendation']}`\n\n";
 
-            $content .= "## 📱 Social Media Caption\n";
+            $content .= "## 📱 Social Media Caption (Instagram)\n";
             $content .= "**Hook:**\n".($payload['social_media_caption']['hook_sentence'] ?? '')."\n\n";
             $content .= "**Body:**\n".($payload['social_media_caption']['body_paragraph'] ?? '')."\n\n";
             $content .= "**Call To Action:**\n".($payload['social_media_caption']['call_to_action'] ?? '')."\n\n";
             $content .= '**Hashtags:** '.implode(' ', $payload['social_media_caption']['hashtags'] ?? [])."\n\n";
+
+            if (! empty($payload['social_media_caption']['whatsapp_broadcast'])) {
+                $content .= "## 💬 WhatsApp Group Broadcast Message\n```\n";
+                $content .= $payload['social_media_caption']['whatsapp_broadcast']."\n```\n\n";
+            }
+
+            if (! empty($payload['social_media_caption']['linkedin_post'])) {
+                $content .= "## 💼 LinkedIn & Professional Post\n```\n";
+                $content .= $payload['social_media_caption']['linkedin_post']."\n```\n\n";
+            }
 
             $content .= "## 🖼 Visual Slides Layout\n";
             foreach ($payload['visual_slides_layout'] ?? [] as $slide) {

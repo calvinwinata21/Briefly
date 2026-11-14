@@ -25,6 +25,7 @@ class StoreBriefRequest extends FormRequest
         return [
             'event_title' => ['required', 'string', 'max:255'],
             'raw_brief_text' => ['required', 'string', 'min:10'],
+            'tone' => ['nullable', 'string', 'in:casual_energetic,formal_academic,persuasive_urgent'],
         ];
     }
 
