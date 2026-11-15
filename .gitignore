@@ -35,7 +35,6 @@ Thumbs.db
 *.bak
 
 # AI Agent & IDE tools
-/.agents/
 /.gemini/
 .aider*
 .claude/
