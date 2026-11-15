@@ -80,3 +80,60 @@ html:not(.dark) #export-dropdown-menu .border-slate-800,
 html.light #export-dropdown-menu .border-slate-800 {
     border-color: #F1F5F9 !important;
 }
+
+/* Channel Tabs in Light Mode */
+html:not(.dark) .channel-tab-btn:not(.active),
+html.light .channel-tab-btn:not(.active) {
+    color: #64748B !important;
+}
+
+html:not(.dark) .channel-tab-btn:not(.active):hover,
+html.light .channel-tab-btn:not(.active):hover {
+    color: #0F172A !important;
+    background-color: #F1F5F9 !important;
+}
+
+/* Accordion & Preview Sub-Panels in Light Mode */
+html:not(.dark) .channel-panel > div[class*="bg-slate-900"],
+html.light .channel-panel > div[class*="bg-slate-900"] {
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
+}
+
+html:not(.dark) #caption-hook,
+html.light #caption-hook {
+    color: #0F172A !important;
+}
+
+html:not(.dark) #caption-body,
+html.light #caption-body {
+    color: #334155 !important;
+}
+
+html:not(.dark) #caption-cta,
+html.light #caption-cta {
+    color: #166534 !important;
+}
+
+html:not(.dark) #wa-broadcast-text,
+html.light #wa-broadcast-text {
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
+    color: #1E293B !important;
+}
+
+/* Modals Light Mode Overrides */
+html:not(.dark) #approve-modal .surface-card,
+html.light #approve-modal .surface-card,
+html:not(.dark) #reject-modal .surface-card,
+html.light #reject-modal .surface-card {
+    background-color: #FFFFFF !important;
+    border-color: #E2E8F0 !important;
+}
+
+html:not(.dark) #approve-modal h3,
+html.light #approve-modal h3,
+html:not(.dark) #reject-modal h3,
+html.light #reject-modal h3 {
+    color: #0F172A !important;
+}

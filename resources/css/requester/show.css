@@ -23,3 +23,10 @@ html.light .bg-amber-950\/40 {
     border-color: #FDE68A !important;
     color: #92400E !important;
 }
+
+html:not(.dark) .bg-black\/40:not(.slide-canvas *),
+html.light .bg-black\/40:not(.slide-canvas *) {
+    background-color: #F1F5F9 !important;
+    color: #1E293B !important;
+    border: 1px solid #E2E8F0 !important;
+}

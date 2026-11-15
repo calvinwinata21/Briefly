@@ -23,19 +23,87 @@
 html:not(.dark) .template-btn,
 html.light .template-btn {
     background-color: #FFFFFF !important;
-    border: 1px solid #E2E8F0 !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid #CBD5E1 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+html:not(.dark) .template-btn .text-slate-200,
+html.light .template-btn .text-slate-200 {
+    color: #0F172A !important;
+}
+
+html:not(.dark) .template-btn .text-slate-400,
+html.light .template-btn .text-slate-400 {
+    color: #64748B !important;
 }
 
 html:not(.dark) .template-btn:hover,
 html.light .template-btn:hover {
     background-color: #F8FAFC !important;
-    border-color: #A5B4FC !important;
-    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.08) !important;
+    border-color: #CBD5E1 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
 }
 
+html:not(.dark) .template-btn:hover .text-slate-200,
+html.light .template-btn:hover .text-slate-200 {
+    color: #003366 !important;
+}
+
+/* Tone of Voice Selector Labels */
+html:not(.dark) #brief-form label.cursor-pointer,
+html.light #brief-form label.cursor-pointer {
+    background-color: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+}
+
+html:not(.dark) #brief-form label.cursor-pointer:hover,
+html.light #brief-form label.cursor-pointer:hover {
+    background-color: #F8FAFC !important;
+    border-color: #6366F1 !important;
+}
+
+html:not(.dark) #brief-form label.cursor-pointer .text-slate-200,
+html.light #brief-form label.cursor-pointer .text-slate-200 {
+    color: #0F172A !important;
+}
+
+html:not(.dark) #brief-form label.cursor-pointer .text-slate-400,
+html.light #brief-form label.cursor-pointer .text-slate-400 {
+    color: #64748B !important;
+}
+
+/* Workflow Info Box */
+html:not(.dark) #brief-form .bg-slate-900\/50,
+html.light #brief-form .bg-slate-900\/50 {
+    background-color: #F8FAFC !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+html:not(.dark) #brief-form .bg-slate-900\/50 .text-slate-200,
+html.light #brief-form .bg-slate-900\/50 .text-slate-200 {
+    color: #0F172A !important;
+}
+
+html:not(.dark) #brief-form .bg-slate-900\/50 .text-slate-400,
+html.light #brief-form .bg-slate-900\/50 .text-slate-400 {
+    color: #475569 !important;
+}
+
+/* AI Processing Modal in Light Mode */
 html:not(.dark) #ai-loading-overlay,
 html.light #ai-loading-overlay {
-    background-color: rgba(255, 255, 255, 0.85) !important;
+    background-color: rgba(15, 23, 42, 0.5) !important;
     color: #0F172A !important;
+}
+
+html:not(.dark) #ai-loading-overlay .surface-card,
+html.light #ai-loading-overlay .surface-card {
+    background-color: #FFFFFF !important;
+    border-color: #E2E8F0 !important;
+}
+
+html:not(.dark) #ai-loading-overlay .bg-slate-900\/70,
+html.light #ai-loading-overlay .bg-slate-900\/70 {
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
 }

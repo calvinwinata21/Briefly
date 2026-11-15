@@ -1,344 +1,246 @@
 /* ==========================================================================
-   Common Navigation Bar, Brand Identity, Theme Switcher & Role Switcher
+   Common Navbar & Role Switcher (Anti-Slop Craftsmanship)
    ========================================================================== */
 
-/* 1. Brand Logo Text & Badge (Dark Default) */
+/* Header Base */
+header {
+    background-color: #0F172A;
+    border-bottom: 1px solid #1E293B;
+}
+
+html:not(.dark) header,
+html.light header {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+/* Brand Logo (Solid Brand Navy & Amber) */
+.brand-logo-box {
+    background-color: #003366;
+    border: 1px solid rgba(255, 204, 0, 0.4);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.brand-logo-inner {
+    background-color: #002244;
+}
+
+/* Brand Text */
 .brand-logo-text {
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    background-image: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, #FCD34D 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    display: inline-block;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
 }
 
-.brand-badge-text {
-    background-color: rgba(99, 102, 241, 0.12);
-    color: #818CF8;
-    border: 1px solid rgba(99, 102, 241, 0.25);
+html:not(.dark) .brand-logo-text,
+html.light .brand-logo-text {
+    color: #0F172A;
 }
 
-/* 2. Navigation Links (Dark Default) */
+/* Navigation Links */
+.nav-link-btn {
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
 .nav-link-idle {
     color: #94A3B8;
 }
+
 .nav-link-idle:hover {
-    color: #FFFFFF;
-    background-color: rgba(255, 255, 255, 0.08);
-}
-.nav-link-active {
-    background-color: rgba(255, 255, 255, 0.12);
-    color: #FFFFFF;
-    font-weight: 600;
-}
-.nav-link-active-designer {
-    background-color: rgba(99, 102, 241, 0.2);
-    color: #A5B4FC;
-    border: 1px solid rgba(99, 102, 241, 0.35);
-    font-weight: 600;
-}
-.nav-link-active-admin {
-    background-color: rgba(245, 158, 11, 0.2);
-    color: #FCD34D;
-    border: 1px solid rgba(245, 158, 11, 0.35);
-    font-weight: 600;
-}
-
-/* 3. Theme Toggle & Quick Role Trigger (Dark Default) */
-#theme-toggle-btn {
-    background-color: rgba(30, 41, 59, 0.8);
-    border: 1px solid #334155;
-    color: #FBBF24;
-}
-#theme-toggle-btn:hover {
-    background-color: rgba(51, 65, 85, 0.8);
-    color: #FCD34D;
-}
-
-#quick-role-trigger {
-    background-color: rgba(30, 41, 59, 0.8);
-    border: 1px solid #334155;
-    color: #CBD5E1;
-}
-#quick-role-trigger:hover {
-    background-color: rgba(51, 65, 85, 0.8);
-    border-color: #475569;
-    color: #FFFFFF;
-}
-#quick-role-trigger strong {
-    color: #FFFFFF;
-}
-
-/* 4. Quick Role Dropdown (Dark Default) */
-#quick-role-dropdown {
-    background-color: #0F172A;
-    border: 1px solid rgba(51, 65, 85, 0.8);
-    color: #E2E8F0;
-}
-#quick-role-dropdown .dropdown-header {
-    color: #94A3B8;
-    border-color: #1E293B;
-}
-.role-menu-item.role-item-idle {
-    color: #CBD5E1;
-}
-.role-menu-item.role-item-idle:hover {
+    color: #F8FAFC;
     background-color: #1E293B;
-    color: #FFFFFF;
-}
-.role-menu-item.role-item-idle .role-title {
-    color: #E2E8F0;
-}
-.role-menu-item.role-item-idle .role-sub {
-    color: #94A3B8;
-}
-.role-menu-item.role-item-active-admin {
-    background-color: rgba(245, 158, 11, 0.2);
-    color: #FCD34D;
-    font-weight: 600;
-}
-.role-menu-item.role-item-active-admin .role-title {
-    color: #FCD34D;
-}
-.role-menu-item.role-item-active-admin .role-sub {
-    color: #FBBF24;
-}
-.role-menu-item.role-item-active-admin .role-badge {
-    background-color: rgba(251, 191, 36, 0.25);
-    color: #FCD34D;
-}
-.role-menu-item.role-item-active-designer {
-    background-color: rgba(99, 102, 241, 0.2);
-    color: #A5B4FC;
-    font-weight: 600;
-}
-.role-menu-item.role-item-active-designer .role-title {
-    color: #A5B4FC;
-}
-.role-menu-item.role-item-active-designer .role-sub {
-    color: #818CF8;
-}
-.role-menu-item.role-item-active-designer .role-badge {
-    background-color: rgba(129, 140, 248, 0.25);
-    color: #A5B4FC;
-}
-.role-menu-item.role-item-active-requester {
-    background-color: rgba(16, 185, 129, 0.2);
-    color: #6EE7B7;
-    font-weight: 600;
-}
-.role-menu-item.role-item-active-requester .role-title {
-    color: #6EE7B7;
-}
-.role-menu-item.role-item-active-requester .role-sub {
-    color: #34D399;
-}
-.role-menu-item.role-item-active-requester .role-badge {
-    background-color: rgba(52, 211, 153, 0.25);
-    color: #6EE7B7;
 }
 
-/* ==========================================================================
-   Navbar & Controls Light Mode Overrides
-   ========================================================================== */
-html:not(.dark) header,
-html.light header {
-    background-color: rgba(255, 255, 255, 0.96) !important;
-    border-bottom: 1px solid #E2E8F0 !important;
-    box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.05);
-}
-
-html:not(.dark) .brand-logo-inner,
-html.light .brand-logo-inner {
-    background-color: #FFFFFF !important;
-}
-
-/* Brand Logo Text in Light Mode (Crystal Clear Deep Navy & Gold) */
-html:not(.dark) .brand-logo-text,
-html.light .brand-logo-text {
-    background-image: linear-gradient(135deg, #003366 0%, #1E1B4B 50%, #B45309 100%) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    color: #003366 !important;
-    filter: drop-shadow(0 1px 1px rgba(0, 51, 102, 0.12));
-}
-
-html:not(.dark) .brand-badge-text,
-html.light .brand-badge-text {
-    background-color: #EEF2FF !important;
-    border-color: #C7D2FE !important;
-    color: #3730A3 !important;
-}
-
-/* Navigation Links in Light Mode */
 html:not(.dark) .nav-link-idle,
 html.light .nav-link-idle {
-    color: #475569 !important;
-    background-color: transparent !important;
+    color: #64748B;
 }
 
 html:not(.dark) .nav-link-idle:hover,
 html.light .nav-link-idle:hover {
-    color: #0F172A !important;
-    background-color: #F1F5F9 !important;
+    color: #0F172A;
+    background-color: #F1F5F9;
+}
+
+.nav-link-active {
+    background-color: #1E293B;
+    color: #FFFFFF;
+    border: 1px solid #334155;
 }
 
 html:not(.dark) .nav-link-active,
 html.light .nav-link-active {
-    background-color: #E2E8F0 !important;
-    color: #0F172A !important;
-    font-weight: 700 !important;
+    background-color: #F1F5F9;
+    color: #0F172A;
+    border: 1px solid #CBD5E1;
+}
+
+.nav-link-active-designer {
+    background-color: #1E293B;
+    color: #818CF8;
+    border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 html:not(.dark) .nav-link-active-designer,
 html.light .nav-link-active-designer {
-    background-color: #EEF2FF !important;
-    border: 1px solid #C7D2FE !important;
-    color: #3730A3 !important;
-    font-weight: 700 !important;
+    background-color: #EEF2FF;
+    color: #3730A3;
+    border: 1px solid #C7D2FE;
+}
+
+.nav-link-active-admin {
+    background-color: #1E293B;
+    color: #FBBF24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 html:not(.dark) .nav-link-active-admin,
 html.light .nav-link-active-admin {
-    background-color: #FEF3C7 !important;
-    border: 1px solid #FDE68A !important;
-    color: #92400E !important;
-    font-weight: 700 !important;
+    background-color: #FEF3C7;
+    color: #92400E;
+    border: 1px solid #FDE68A;
 }
 
-/* Theme Switcher in Light Mode */
+/* Theme Toggle Button */
+#theme-toggle-btn {
+    background-color: #1E293B;
+    border: 1px solid #334155;
+    color: #94A3B8;
+}
+
+#theme-toggle-btn:hover {
+    background-color: #334155;
+    color: #F8FAFC;
+}
+
 html:not(.dark) #theme-toggle-btn,
 html.light #theme-toggle-btn {
-    background-color: #F1F5F9 !important;
-    border: 1px solid #CBD5E1 !important;
-    color: #4F46E5 !important;
+    background-color: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    color: #475569;
 }
+
 html:not(.dark) #theme-toggle-btn:hover,
 html.light #theme-toggle-btn:hover {
-    background-color: #E2E8F0 !important;
-    border-color: #94A3B8 !important;
-    color: #4338CA !important;
+    background-color: #E2E8F0;
+    color: #0F172A;
 }
 
-/* Quick Role Trigger Button in Light Mode */
+/* Quick Role Trigger */
+#quick-role-trigger {
+    background-color: #1E293B;
+    border: 1px solid #334155;
+    color: #E2E8F0;
+}
+
+#quick-role-trigger:hover {
+    background-color: #334155;
+}
+
 html:not(.dark) #quick-role-trigger,
 html.light #quick-role-trigger {
-    background-color: #F1F5F9 !important;
-    border: 1px solid #CBD5E1 !important;
-    color: #334155 !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
-}
-html:not(.dark) #quick-role-trigger:hover,
-html.light #quick-role-trigger:hover {
-    background-color: #E2E8F0 !important;
-    border-color: #94A3B8 !important;
-    color: #0F172A !important;
-}
-html:not(.dark) #quick-role-trigger strong,
-html.light #quick-role-trigger strong {
-    color: #0F172A !important;
-    font-weight: 700 !important;
+    background-color: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    color: #0F172A;
 }
 
-/* Quick Role Switcher Dropdown in Light Mode */
+html:not(.dark) #quick-role-trigger:hover,
+html.light #quick-role-trigger:hover {
+    background-color: #E2E8F0;
+}
+
+/* Quick Role Dropdown Menu */
+#quick-role-dropdown {
+    background-color: #0F172A;
+    border: 1px solid #334155;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
 html:not(.dark) #quick-role-dropdown,
 html.light #quick-role-dropdown {
-    background-color: #FFFFFF !important;
-    border: 1px solid #E2E8F0 !important;
-    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15) !important;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }
-html:not(.dark) #quick-role-dropdown .dropdown-header,
-html.light #quick-role-dropdown .dropdown-header {
-    color: #64748B !important;
-    border-bottom: 1px solid #F1F5F9 !important;
+
+.dropdown-header {
+    color: #64748B;
+    border-color: #1E293B;
 }
-html:not(.dark) #quick-role-dropdown button,
-html.light #quick-role-dropdown button {
-    color: inherit !important;
+
+html:not(.dark) .dropdown-header,
+html.light .dropdown-header {
+    color: #64748B;
+    border-color: #E2E8F0;
 }
-html:not(.dark) .role-menu-item.role-item-idle,
-html.light .role-menu-item.role-item-idle {
-    color: #334155 !important;
-    background-color: transparent !important;
+
+.role-menu-item {
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
-html:not(.dark) .role-menu-item.role-item-idle:hover,
-html.light .role-menu-item.role-item-idle:hover {
-    background-color: #F8FAFC !important;
-    color: #0F172A !important;
+
+.role-item-idle {
+    color: #94A3B8;
 }
-html:not(.dark) .role-menu-item.role-item-idle .role-title,
-html.light .role-menu-item.role-item-idle .role-title {
-    color: #1E293B !important;
-    font-weight: 600 !important;
+
+.role-item-idle:hover {
+    background-color: #1E293B;
+    color: #F8FAFC;
 }
-html:not(.dark) .role-menu-item.role-item-idle .role-sub,
-html.light .role-menu-item.role-item-idle .role-sub {
-    color: #64748B !important;
+
+html:not(.dark) .role-item-idle,
+html.light .role-item-idle {
+    color: #334155;
 }
-html:not(.dark) .role-menu-item.role-item-active-admin,
-html.light .role-menu-item.role-item-active-admin {
-    background-color: #FEF3C7 !important;
-    border: 1px solid #FDE68A !important;
-    color: #78350F !important;
+
+html:not(.dark) .role-item-idle:hover,
+html.light .role-item-idle:hover {
+    background-color: #F1F5F9;
+    color: #0F172A;
 }
-html:not(.dark) .role-menu-item.role-item-active-admin .role-title,
-html.light .role-menu-item.role-item-active-admin .role-title {
-    color: #78350F !important;
-    font-weight: 700 !important;
+
+.role-item-active-admin {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #FBBF24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
-html:not(.dark) .role-menu-item.role-item-active-admin .role-sub,
-html.light .role-menu-item.role-item-active-admin .role-sub {
-    color: #92400E !important;
+
+html:not(.dark) .role-item-active-admin,
+html.light .role-item-active-admin {
+    background-color: #FEF3C7;
+    color: #92400E;
+    border: 1px solid #FDE68A;
 }
-html:not(.dark) .role-menu-item.role-item-active-admin .role-badge,
-html.light .role-menu-item.role-item-active-admin .role-badge {
-    background-color: #FDE68A !important;
-    color: #78350F !important;
-    border: 1px solid #FCD34D !important;
+
+.role-item-active-designer {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: #818CF8;
+    border: 1px solid rgba(99, 102, 241, 0.3);
 }
-html:not(.dark) .role-menu-item.role-item-active-designer,
-html.light .role-menu-item.role-item-active-designer {
-    background-color: #EEF2FF !important;
-    border: 1px solid #C7D2FE !important;
-    color: #312E81 !important;
+
+html:not(.dark) .role-item-active-designer,
+html.light .role-item-active-designer {
+    background-color: #EEF2FF;
+    color: #3730A3;
+    border: 1px solid #C7D2FE;
 }
-html:not(.dark) .role-menu-item.role-item-active-designer .role-title,
-html.light .role-menu-item.role-item-active-designer .role-title {
-    color: #312E81 !important;
-    font-weight: 700 !important;
+
+.role-item-active-requester {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #34D399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
-html:not(.dark) .role-menu-item.role-item-active-designer .role-sub,
-html.light .role-menu-item.role-item-active-designer .role-sub {
-    color: #4338CA !important;
+
+html:not(.dark) .role-item-active-requester,
+html.light .role-item-active-requester {
+    background-color: #DCFCE7;
+    color: #166534;
+    border: 1px solid #86EFAC;
 }
-html:not(.dark) .role-menu-item.role-item-active-designer .role-badge,
-html.light .role-menu-item.role-item-active-designer .role-badge {
-    background-color: #C7D2FE !important;
-    color: #312E81 !important;
-    border: 1px solid #A5B4FC !important;
+
+.role-badge {
+    background-color: rgba(255, 255, 255, 0.1);
 }
-html:not(.dark) .role-menu-item.role-item-active-requester,
-html.light .role-menu-item.role-item-active-requester {
-    background-color: #ECFDF5 !important;
-    border: 1px solid #A7F3D0 !important;
-    color: #064E3B !important;
-}
-html:not(.dark) .role-menu-item.role-item-active-requester .role-title,
-html.light .role-menu-item.role-item-active-requester .role-title {
-    color: #064E3B !important;
-    font-weight: 700 !important;
-}
-html:not(.dark) .role-menu-item.role-item-active-requester .role-sub,
-html.light .role-menu-item.role-item-active-requester .role-sub {
-    color: #065F46 !important;
-}
-html:not(.dark) .role-menu-item.role-item-active-requester .role-badge,
-html.light .role-menu-item.role-item-active-requester .role-badge {
-    background-color: #A7F3D0 !important;
-    color: #064E3B !important;
-    border: 1px solid #6EE7B7 !important;
+
+html:not(.dark) .role-badge,
+html.light .role-badge {
+    background-color: rgba(0, 0, 0, 0.08);
 }

@@ -26,7 +26,7 @@ export function initSlidePreview() {
         indicatorContainer.innerHTML = '';
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('button');
-            dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-amber-400 w-8' : 'bg-slate-600 hover:bg-slate-400'}`;
+            dot.className = `h-1.5 rounded-sm transition-all duration-200 ${i === 0 ? 'bg-amber-400 w-6' : 'bg-slate-700 hover:bg-slate-500 w-2'}`;
             dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
             dot.addEventListener('click', () => goToSlide(i));
             indicatorContainer.appendChild(dot);
@@ -53,9 +53,9 @@ export function initSlidePreview() {
             const dots = indicatorContainer.querySelectorAll('button');
             dots.forEach((dot, idx) => {
                 if (idx === currentSlide) {
-                    dot.className = 'w-8 h-2.5 rounded-full bg-amber-400 transition-all duration-300';
+                    dot.className = 'w-6 h-1.5 rounded-sm bg-amber-400 transition-all duration-200';
                 } else {
-                    dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-600 hover:bg-slate-400 transition-all duration-300';
+                    dot.className = 'w-2 h-1.5 rounded-sm bg-slate-700 hover:bg-slate-500 transition-all duration-200';
                 }
             });
         }

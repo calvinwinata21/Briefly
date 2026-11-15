@@ -1,4 +1,4 @@
-<x-layouts.app title="Review Draf #{{ $draft->ai_output_json['job_id'] ?? $draft->id }} — HITL Workspace">
+<x-layouts.app title="Review Draf #{{ $draft->ai_output_json['job_id'] ?? $draft->id }} : HITL Workspace">
     @php
         $json = $draft->ai_output_json;
         $jobId = $json['job_id'] ?? 'JOB-' . $draft->id;
@@ -17,49 +17,49 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <!-- Badges & Navigation -->
                 <div class="flex flex-wrap items-center gap-2">
-                    <a href="{{ route('designer.dashboard') }}" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/80 transition-colors" title="Kembali ke Dashboard Review">
+                    <a href="{{ route('designer.dashboard') }}" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/80 transition-colors" title="Kembali ke Dashboard Review">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
                     </a>
 
-                    <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700" data-job-id="{{ $jobId }}">
+                    <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700" data-job-id="{{ $jobId }}">
                         {{ $jobId }}
                     </span>
 
                     @if($draft->approval_status === 'APPROVED')
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                             Disetujui (Approved)
                         </span>
                     @elseif($draft->approval_status === 'REJECTED')
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
                             <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                             Ditolak (Rejected)
                         </span>
                     @else
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                             Menunggu Review (HITL)
                         </span>
                     @endif
 
                     @if($draft->brief->mediaDrafts()->count() > 1)
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                            <span>🔄</span> Draf Revisi v{{ $draft->brief->mediaDrafts()->count() }}
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                            Revisi v{{ $draft->brief->mediaDrafts()->count() }}
                         </span>
                     @endif
 
                     @if($draft->brief->tone)
                         @php
                             $toneNames = [
-                                'casual_energetic' => '⚡ Kasual',
-                                'formal_academic' => '🎓 Formal',
-                                'persuasive_urgent' => '🔥 Urgent',
+                                'casual_energetic' => 'Kasual',
+                                'formal_academic' => 'Formal',
+                                'persuasive_urgent' => 'Urgent',
                             ];
                         @endphp
-                        <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-800 text-amber-300 border border-amber-500/30">
-                            {{ $toneNames[$draft->brief->tone] ?? '⚡ Standar' }}
+                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-slate-800 text-amber-300 border border-amber-500/20">
+                            Tone: {{ $toneNames[$draft->brief->tone] ?? 'Standar' }}
                         </span>
                     @endif
                 </div>
@@ -86,7 +86,7 @@
                             </svg>
                         </button>
 
-                        <div id="export-dropdown-menu" class="hidden absolute right-0 mt-2 w-60 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl backdrop-blur-xl z-50 p-1.5 space-y-1">
+                        <div id="export-dropdown-menu" class="hidden absolute right-0 mt-2 w-60 rounded-xl bg-slate-900 border border-slate-700 shadow-xl z-50 p-1.5 space-y-1">
                             <button type="button" id="download-current-slide-btn" class="w-full px-3 py-2 rounded-xl text-left text-xs font-medium text-slate-200 hover:bg-slate-800 flex items-center gap-2.5 transition-colors">
                                 <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -169,7 +169,7 @@
         <div id="draft-view-mode" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <!-- Left 7 Cols: Interactive Visual Slide Mockup -->
             <div class="lg:col-span-7 space-y-4">
-                <div class="glass-panel rounded-2xl p-5 sm:p-6">
+                <div class="surface-card rounded-xl p-5 sm:p-6">
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
@@ -229,8 +229,8 @@
                                 <div class="my-auto py-4">
                                     @if($slide['layout_template'] === 'cover')
                                         <div class="space-y-3">
-                                            <span class="inline-block text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full text-slate-900 shadow-md" style="background-color: {{ $secondaryColor }};">
-                                                ★ Official Event
+                                            <span class="inline-block text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-md text-slate-900 shadow-sm" style="background-color: {{ $secondaryColor }};">
+                                                Official Event
                                             </span>
                                             <h3 class="text-2xl font-extrabold leading-tight tracking-tight text-white drop-shadow-md">
                                                 {{ $slide['headline'] }}
@@ -303,7 +303,7 @@
 
                                 <!-- Slide Footer -->
                                 <div class="flex items-center justify-between text-[10px] text-slate-300 border-t border-white/10 pt-2 font-mono">
-                                    <span>Swipe Left ➔</span>
+                                    <span>Geser Slide</span>
                                     <span>{{ $slide['slide_number'] }} / {{ count($slides) }}</span>
                                 </div>
                             </div>
@@ -333,7 +333,7 @@
                 </div>
 
                 <!-- Structured Slides Layout Detail Accordion -->
-                <div class="glass-panel rounded-2xl p-5 space-y-3">
+                <div class="surface-card rounded-xl p-5 space-y-3">
                     <h3 class="text-xs font-semibold text-slate-300 uppercase tracking-wider">
                         Rincian Semua Slide Layout (Struktur JSON Terverifikasi)
                     </h3>
@@ -367,7 +367,7 @@
             <!-- Right 5 Cols: Social Media Caption & RAG Telemetry -->
             <div class="lg:col-span-5 space-y-4">
                 <!-- Multi-Channel Copywriting Hub Card -->
-                <div class="glass-panel rounded-2xl p-5 space-y-4">
+                <div class="surface-card rounded-xl p-5 space-y-4">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
                         <div>
                             <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
@@ -380,15 +380,15 @@
                         </div>
 
                         <!-- Channel Tab Buttons -->
-                        <div class="flex items-center gap-1 p-1 bg-slate-900 rounded-xl border border-slate-800 text-[11px] font-semibold">
-                            <button type="button" id="tab-btn-ig" class="channel-tab-btn active px-2.5 py-1 rounded-lg bg-indigo-600 text-white transition-all">
-                                📸 IG
+                        <div class="flex items-center gap-1 p-1 bg-slate-900 rounded-lg border border-slate-800 text-[11px] font-semibold">
+                            <button type="button" id="tab-btn-ig" class="channel-tab-btn active px-2.5 py-1 rounded-md bg-[#003366] text-white transition-all">
+                                Instagram
                             </button>
-                            <button type="button" id="tab-btn-wa" class="channel-tab-btn px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-                                💬 WA
+                            <button type="button" id="tab-btn-wa" class="channel-tab-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition-all">
+                                WhatsApp
                             </button>
-                            <button type="button" id="tab-btn-li" class="channel-tab-btn px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-                                💼 LinkedIn
+                            <button type="button" id="tab-btn-li" class="channel-tab-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition-all">
+                                LinkedIn
                             </button>
                         </div>
                     </div>
@@ -454,7 +454,7 @@
                 </div>
 
                 <!-- Grounding & RAG Telemetry Panel -->
-                <div class="glass-panel rounded-2xl p-5 space-y-3">
+                <div class="surface-card rounded-xl p-5 space-y-3">
                     <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -505,7 +505,7 @@
                 </div>
 
                 <!-- Raw JSON Inspector Accordion -->
-                <div class="glass-panel rounded-2xl p-4">
+                <div class="surface-card rounded-xl p-4">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Formal JSON Contract Inspector</span>
                         <button type="button" id="copy-json-btn" class="text-[11px] text-indigo-400 hover:text-indigo-300 font-medium">
@@ -518,12 +518,12 @@
         </div>
 
         <!-- MAIN EDIT MODE CONTAINER (HITL Editing) -->
-        <div id="draft-edit-mode" class="hidden glass-panel rounded-2xl p-6 sm:p-8 space-y-6">
+        <div id="draft-edit-mode" class="hidden surface-card rounded-xl p-6 sm:p-8 space-y-6">
             <div class="flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <span>Mode Sunting Konten (Human-in-the-Loop)</span>
-                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Edit Langsung</span>
+                        <span class="text-xs px-2.5 py-0.5 rounded-md bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Edit Langsung</span>
                     </h2>
                     <p class="text-xs text-slate-400 mt-0.5">Ubah redaksi caption atau sesuaikan headline dan isi slide sebelum menyetujui.</p>
                 </div>
@@ -615,11 +615,11 @@
     </div>
 
     <!-- Approve Modal Dialog -->
-    <div id="approve-modal" class="modal-container hidden fixed inset-0 z-50 bg-[#070B14]/80 backdrop-blur-md items-center justify-center p-4">
+    <div id="approve-modal" class="modal-container hidden fixed inset-0 z-50 bg-[#070B14]/80 items-center justify-center p-4">
         <div class="modal-backdrop absolute inset-0"></div>
-        <div class="glass-panel relative z-10 max-w-md w-full rounded-2xl p-6 space-y-4 border border-emerald-500/30 shadow-2xl">
+        <div class="surface-card relative z-10 max-w-md w-full rounded-xl p-6 space-y-4 border border-emerald-500/30 shadow-xl">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
@@ -635,15 +635,15 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-300 mb-1">Catatan Persetujuan (Opsional)</label>
                     <textarea name="designer_feedback" rows="3"
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                        class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
                         placeholder="Contoh: Tata letak slide sesuai Brand Guideline HMIF 2026. Teks dan warna disetujui.">Disetujui oleh Lead Designer sesuai Brand Guideline resmi.</textarea>
                 </div>
 
                 <div class="flex items-center justify-end gap-2 pt-2">
-                    <button type="button" id="cancel-approve-btn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors">
+                    <button type="button" id="cancel-approve-btn" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors">
                         Batal
                     </button>
-                    <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-lg shadow-emerald-600/30 transition-all">
+                    <button type="submit" class="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-all">
                         Ya, Setujui Draf
                     </button>
                 </div>
@@ -652,11 +652,11 @@
     </div>
 
     <!-- Reject Modal Dialog -->
-    <div id="reject-modal" class="modal-container hidden fixed inset-0 z-50 bg-[#070B14]/80 backdrop-blur-md items-center justify-center p-4">
+    <div id="reject-modal" class="modal-container hidden fixed inset-0 z-50 bg-[#070B14]/80 items-center justify-center p-4">
         <div class="modal-backdrop absolute inset-0"></div>
-        <div class="glass-panel relative z-10 max-w-md w-full rounded-2xl p-6 space-y-4 border border-rose-500/30 shadow-2xl">
+        <div class="surface-card relative z-10 max-w-md w-full rounded-xl p-6 space-y-4 border border-rose-500/30 shadow-xl">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                <div class="w-10 h-10 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -672,15 +672,15 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-300 mb-1">Alasan Penolakan / Catatan Revisi <span class="text-rose-400">*</span></label>
                     <textarea name="designer_feedback" rows="3" required
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-rose-500"
+                        class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-rose-500"
                         placeholder="Contoh: Tanggal pelaksanaan belum tercantum dengan jelas atau poin pembicara perlu dirinci."></textarea>
                 </div>
 
                 <div class="flex items-center justify-end gap-2 pt-2">
-                    <button type="button" id="cancel-reject-btn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors">
+                    <button type="button" id="cancel-reject-btn" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors">
                         Batal
                     </button>
-                    <button type="submit" class="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold shadow-lg shadow-rose-600/30 transition-all">
+                    <button type="submit" class="px-5 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition-all">
                         Tolak & Kirim Umpan Balik
                     </button>
                 </div>

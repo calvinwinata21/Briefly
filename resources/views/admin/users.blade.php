@@ -1,11 +1,11 @@
-<x-layouts.app title="Kelola Pengguna & Otorisasi — Briefly Admin">
+<x-layouts.app title="Kelola Pengguna & Otorisasi : Briefly Admin">
     <div class="space-y-6">
         <!-- Admin Header -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-white/10">
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                     <span>Manajemen Akun & Matriks Hak Akses (RBAC)</span>
-                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 font-semibold">Administrator</span>
+                    <span class="text-xs px-2.5 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20 font-semibold">Administrator</span>
                 </h1>
                 <p class="text-xs text-slate-400 mt-1">
                     Daftar pengguna terdaftar dan hak akses sesuai Role-Based Access Control matrix spesifikasi sistem.
@@ -14,7 +14,7 @@
         </div>
 
         <!-- RBAC Matrix Card (Specification 2) -->
-        <div class="glass-panel rounded-2xl p-6 space-y-4">
+        <div class="surface-card rounded-xl p-6 space-y-4">
             <h2 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
                 <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -23,9 +23,9 @@
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                <div class="p-4 rounded-xl bg-slate-900/80 border border-amber-500/30 space-y-2">
+                <div class="rbac-card-admin p-4 rounded-xl bg-slate-900/80 border border-amber-500/30 space-y-2">
                     <div class="flex items-center justify-between">
-                        <span class="font-bold text-amber-300">👑 Administrator</span>
+                        <span class="font-bold text-amber-300">Administrator</span>
                         <span class="text-[10px] bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded font-mono">Head of Media</span>
                     </div>
                     <ul class="text-slate-300 space-y-1.5 list-disc list-inside text-[11px]">
@@ -36,9 +36,9 @@
                     </ul>
                 </div>
 
-                <div class="p-4 rounded-xl bg-slate-900/80 border border-indigo-500/30 space-y-2">
+                <div class="rbac-card-designer p-4 rounded-xl bg-slate-900/80 border border-indigo-500/30 space-y-2">
                     <div class="flex items-center justify-between">
-                        <span class="font-bold text-indigo-300">🎨 Lead Designer Specialist</span>
+                        <span class="font-bold text-indigo-300">Lead Designer Specialist</span>
                         <span class="text-[10px] bg-indigo-400/20 text-indigo-300 px-2 py-0.5 rounded font-mono">Tim Media</span>
                     </div>
                     <ul class="text-slate-300 space-y-1.5 list-disc list-inside text-[11px]">
@@ -49,9 +49,9 @@
                     </ul>
                 </div>
 
-                <div class="p-4 rounded-xl bg-slate-900/80 border border-emerald-500/30 space-y-2">
+                <div class="rbac-card-requester p-4 rounded-xl bg-slate-900/80 border border-emerald-500/30 space-y-2">
                     <div class="flex items-center justify-between">
-                        <span class="font-bold text-emerald-300">📝 Requester</span>
+                        <span class="font-bold text-emerald-300">Requester</span>
                         <span class="text-[10px] bg-emerald-400/20 text-emerald-300 px-2 py-0.5 rounded font-mono">Panitia / Member</span>
                     </div>
                     <ul class="text-slate-300 space-y-1.5 list-disc list-inside text-[11px]">
@@ -65,7 +65,7 @@
         </div>
 
         <!-- Users Table -->
-        <div class="glass-panel rounded-2xl overflow-hidden">
+        <div class="surface-card rounded-xl overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
                     <thead class="bg-slate-900/80 text-[11px] uppercase tracking-wider text-slate-400 border-b border-white/5">
@@ -88,15 +88,15 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($user->role === 'admin')
-                                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/20">
                                             Administrator
                                         </span>
                                     @elseif($user->role === 'designer')
-                                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
                                             Designer Specialist
                                         </span>
                                     @else
-                                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
                                             Requester
                                         </span>
                                     @endif

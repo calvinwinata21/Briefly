@@ -10,14 +10,14 @@ export function showToast(message, type = 'info', duration = 4000) {
     }
 
     const toast = document.createElement('div');
-    toast.className = `toast-message flex items-center gap-3 px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl text-sm font-medium transition-all ${
+    toast.className = `toast-message flex items-center gap-3 px-4 py-3 rounded-lg border shadow-xl text-sm font-medium transition-all ${
         type === 'success'
-            ? 'bg-emerald-950/80 border-emerald-500/40 text-emerald-200 shadow-emerald-950/50'
+            ? 'bg-emerald-950 border-emerald-500/50 text-emerald-200'
             : type === 'warning'
-            ? 'bg-amber-950/80 border-amber-500/40 text-amber-200 shadow-amber-950/50'
+            ? 'bg-amber-950 border-amber-500/50 text-amber-200'
             : type === 'error'
-            ? 'bg-rose-950/80 border-rose-500/40 text-rose-200 shadow-rose-950/50'
-            : 'bg-slate-900/80 border-slate-700/60 text-slate-200 shadow-black/50'
+            ? 'bg-rose-950 border-rose-500/50 text-rose-200'
+            : 'bg-slate-900 border-slate-700 text-slate-200'
     }`;
 
     const icon = type === 'success'

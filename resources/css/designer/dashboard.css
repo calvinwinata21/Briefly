@@ -88,3 +88,52 @@ html.light .filter-tab-idle:hover {
     background-color: #F1F5F9 !important;
     color: #0F172A !important;
 }
+
+/* KPI Metric Cards Light Mode Contrast */
+html:not(.dark) .surface-card .text-amber-300,
+html.light .surface-card .text-amber-300 {
+    color: #92400E !important;
+}
+html:not(.dark) .surface-card .text-amber-400,
+html.light .surface-card .text-amber-400 {
+    color: #B45309 !important;
+}
+html:not(.dark) .surface-card .text-emerald-300,
+html.light .surface-card .text-emerald-300 {
+    color: #166534 !important;
+}
+html:not(.dark) .surface-card .text-emerald-400,
+html.light .surface-card .text-emerald-400 {
+    color: #047857 !important;
+}
+html:not(.dark) .surface-card .text-rose-300,
+html.light .surface-card .text-rose-300 {
+    color: #9F1239 !important;
+}
+html:not(.dark) .surface-card .text-rose-400,
+html.light .surface-card .text-rose-400 {
+    color: #BE123C !important;
+}
+
+/* Draft Cards (Review Grid) Light Mode Overrides */
+html:not(.dark) .surface-card-interactive h3,
+html.light .surface-card-interactive h3,
+html:not(.dark) .surface-card-interactive .text-white,
+html.light .surface-card-interactive .text-white {
+    color: #0F172A !important;
+}
+
+html:not(.dark) .surface-card-interactive:hover h3,
+html.light .surface-card-interactive:hover h3 {
+    color: #003366 !important;
+}
+
+html:not(.dark) .surface-card-interactive .border-slate-800,
+html.light .surface-card-interactive .border-slate-800 {
+    border-color: #E2E8F0 !important;
+}
+
+html:not(.dark) .surface-card-interactive .bg-slate-800\/80,
+html.light .surface-card-interactive .bg-slate-800\/80 {
+    background-color: #F1F5F9 !important;
+}

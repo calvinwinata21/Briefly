@@ -26,3 +26,15 @@ html.light .ai-param-readonly {
     border-color: #CBD5E1 !important;
     color: #334155 !important;
 }
+
+html:not(.dark) .ai-fallback-box,
+html.light .ai-fallback-box {
+    background-color: #FFFBEB !important;
+    border-color: #FDE68A !important;
+    color: #92400E !important;
+}
+
+html:not(.dark) .ai-fallback-box p,
+html.light .ai-fallback-box p {
+    color: #78350F !important;
+}

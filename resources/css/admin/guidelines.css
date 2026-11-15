@@ -35,3 +35,33 @@ html.light .rag-chunk-card:hover {
     border-color: #A5B4FC !important;
     background-color: #FFFFFF !important;
 }
+
+html:not(.dark) .rag-chunk-card .text-indigo-300,
+html.light .rag-chunk-card .text-indigo-300 {
+    color: #4338CA !important;
+}
+
+html:not(.dark) .rag-chunk-card .text-slate-300,
+html.light .rag-chunk-card .text-slate-300 {
+    color: #334155 !important;
+}
+
+html:not(.dark) .rag-chunk-card span.bg-slate-800,
+html.light .rag-chunk-card span.bg-slate-800 {
+    background-color: #E2E8F0 !important;
+    color: #475569 !important;
+}
+
+/* Document file upload container */
+html:not(.dark) .guideline-doc-container,
+html.light .guideline-doc-container {
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
+    color: #475569 !important;
+}
+
+/* Card 3 Indigo border in light mode */
+html:not(.dark) .border-indigo-500\/20,
+html.light .border-indigo-500\/20 {
+    border-color: #C7D2FE !important;
+}

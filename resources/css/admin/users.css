@@ -16,20 +16,53 @@
 }
 
 /* Light Mode Overrides for RBAC Matrix Cards */
-html:not(.dark) .border-amber-500\/30,
-html.light .border-amber-500\/30 {
+html:not(.dark) .rbac-card-admin,
+html.light .rbac-card-admin {
     background-color: #FFFBEB !important;
     border-color: #FDE68A !important;
 }
 
-html:not(.dark) .border-indigo-500\/30,
-html.light .border-indigo-500\/30 {
+html:not(.dark) .rbac-card-admin .text-amber-300,
+html.light .rbac-card-admin .text-amber-300 {
+    color: #92400E !important;
+}
+
+html:not(.dark) .rbac-card-admin .bg-amber-400\/20,
+html.light .rbac-card-admin .bg-amber-400\/20 {
+    background-color: #FEF3C7 !important;
+    color: #92400E !important;
+}
+
+html:not(.dark) .rbac-card-designer,
+html.light .rbac-card-designer {
     background-color: #EEF2FF !important;
     border-color: #C7D2FE !important;
 }
 
-html:not(.dark) .border-emerald-500\/30,
-html.light .border-emerald-500\/30 {
+html:not(.dark) .rbac-card-designer .text-indigo-300,
+html.light .rbac-card-designer .text-indigo-300 {
+    color: #3730A3 !important;
+}
+
+html:not(.dark) .rbac-card-designer .bg-indigo-400\/20,
+html.light .rbac-card-designer .bg-indigo-400\/20 {
+    background-color: #E0E7FF !important;
+    color: #3730A3 !important;
+}
+
+html:not(.dark) .rbac-card-requester,
+html.light .rbac-card-requester {
     background-color: #F0FDF4 !important;
     border-color: #A7F3D0 !important;
+}
+
+html:not(.dark) .rbac-card-requester .text-emerald-300,
+html.light .rbac-card-requester .text-emerald-300 {
+    color: #166534 !important;
+}
+
+html:not(.dark) .rbac-card-requester .bg-emerald-400\/20,
+html.light .rbac-card-requester .bg-emerald-400\/20 {
+    background-color: #DCFCE7 !important;
+    color: #166534 !important;
 }
