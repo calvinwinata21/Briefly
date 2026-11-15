@@ -44,6 +44,50 @@
     color: #FCD34D !important;
 }
 
+/* Explicit High-Specificity Rules to Preserve Slide Canvas in Light Mode */
+html:not(.dark) .slide-canvas,
+html.light .slide-canvas,
+html:not(.dark) .slide-canvas h1,
+html.light .slide-canvas h1,
+html:not(.dark) .slide-canvas h2,
+html.light .slide-canvas h2,
+html:not(.dark) .slide-canvas h3,
+html.light .slide-canvas h3,
+html:not(.dark) .slide-canvas h4,
+html.light .slide-canvas h4,
+html:not(.dark) .slide-canvas p,
+html.light .slide-canvas p,
+html:not(.dark) .slide-canvas .text-white,
+html.light .slide-canvas .text-white {
+    color: #FFFFFF !important;
+}
+
+html:not(.dark) .slide-canvas .text-slate-200,
+html.light .slide-canvas .text-slate-200,
+html:not(.dark) .slide-canvas .text-slate-300,
+html.light .slide-canvas .text-slate-300,
+html:not(.dark) .slide-canvas .text-slate-400,
+html.light .slide-canvas .text-slate-400 {
+    color: #E2E8F0 !important;
+}
+
+html:not(.dark) .slide-canvas .text-amber-400,
+html.light .slide-canvas .text-amber-400,
+html:not(.dark) .slide-canvas .text-amber-300,
+html.light .slide-canvas .text-amber-300 {
+    color: #FCD34D !important;
+}
+
+html:not(.dark) .slide-canvas .text-slate-900,
+html.light .slide-canvas .text-slate-900 {
+    color: #0F172A !important;
+}
+
+html:not(.dark) .slide-canvas .bg-black\/40,
+html.light .slide-canvas .bg-black\/40 {
+    background-color: rgba(0, 0, 0, 0.45) !important;
+}
+
 /* Export Dropdown Menu (Dark Default) */
 #export-dropdown-menu {
     background-color: #0F172A;
@@ -136,4 +180,90 @@ html.light #approve-modal h3,
 html:not(.dark) #reject-modal h3,
 html.light #reject-modal h3 {
     color: #0F172A !important;
+}
+
+/* RAG Chunks Telemetry in Light Mode */
+html:not(.dark) [class*="bg-slate-950/60"],
+html.light [class*="bg-slate-950/60"],
+html:not(.dark) .rag-telemetry-box,
+html.light .rag-telemetry-box {
+    background-color: #F8FAFC !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+html:not(.dark) [class*="bg-slate-950/60"] .text-indigo-300,
+html.light [class*="bg-slate-950/60"] .text-indigo-300,
+html:not(.dark) .rag-telemetry-box .text-indigo-300,
+html.light .rag-telemetry-box .text-indigo-300 {
+    color: #4338CA !important;
+}
+
+html:not(.dark) [class*="bg-slate-950/60"] .text-amber-400,
+html.light [class*="bg-slate-950/60"] .text-amber-400,
+html:not(.dark) .rag-telemetry-box .text-amber-400,
+html.light .rag-telemetry-box .text-amber-400 {
+    color: #B45309 !important;
+}
+
+html:not(.dark) [class*="bg-slate-950/60"] .text-slate-400,
+html.light [class*="bg-slate-950/60"] .text-slate-400,
+html:not(.dark) .rag-telemetry-box .text-slate-400,
+html.light .rag-telemetry-box .text-slate-400 {
+    color: #334155 !important;
+}
+
+/* Formal JSON Contract Inspector in Light Mode */
+html:not(.dark) #raw-json-data,
+html.light #raw-json-data {
+    background-color: #F8FAFC !important;
+    border: 1px solid #E2E8F0 !important;
+    color: #0F172A !important;
+}
+
+html:not(.dark) #copy-json-btn,
+html.light #copy-json-btn {
+    color: #4338CA !important;
+}
+
+html:not(.dark) #copy-json-btn:hover,
+html.light #copy-json-btn:hover {
+    color: #312E81 !important;
+}
+
+/* Carousel Indicator Dots in Light Mode */
+html:not(.dark) #slide-indicators button:not(.bg-amber-400),
+html.light #slide-indicators button:not(.bg-amber-400) {
+    background-color: #CBD5E1 !important;
+}
+
+html:not(.dark) #slide-indicators button:not(.bg-amber-400):hover,
+html.light #slide-indicators button:not(.bg-amber-400):hover {
+    background-color: #94A3B8 !important;
+}
+
+/* Structured Slides Layout Detail Accordion in Light Mode */
+html:not(.dark) .surface-card .w-5.h-5.rounded-full.bg-slate-800,
+html.light .surface-card .w-5.h-5.rounded-full.bg-slate-800 {
+    background-color: #FEF3C7 !important;
+    border: 1px solid #FDE68A !important;
+    color: #92400E !important;
+}
+
+html:not(.dark) .surface-card .w-5.h-5.rounded-full.bg-slate-800 .text-amber-400,
+html.light .surface-card .w-5.h-5.rounded-full.bg-slate-800 .text-amber-400 {
+    color: #92400E !important;
+}
+
+html:not(.dark) .surface-card span.bg-slate-800.font-mono,
+html.light .surface-card span.bg-slate-800.font-mono {
+    background-color: #F1F5F9 !important;
+    border: 1px solid #E2E8F0 !important;
+    color: #475569 !important;
+}
+
+html:not(.dark) .surface-card .text-slate-400.space-y-0\.5,
+html.light .surface-card .text-slate-400.space-y-0\.5,
+html:not(.dark) .surface-card .text-slate-400.space-y-0\.5 p,
+html.light .surface-card .text-slate-400.space-y-0\.5 p {
+    color: #334155 !important;
 }

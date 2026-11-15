@@ -491,7 +491,7 @@
                             <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Chunk RAG yang Dirujuk AI:</span>
                             <div class="space-y-1.5 mt-2">
                                 @foreach($json['rag_context_used'] as $chunk)
-                                    <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-[11px] space-y-1">
+                                    <div class="rag-telemetry-box p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-[11px] space-y-1">
                                         <div class="flex items-center justify-between text-indigo-300 font-semibold">
                                             <span>{{ $chunk['topic'] }}</span>
                                             <span class="text-amber-400 font-mono">Similarity: {{ round($chunk['similarity'] * 100) }}%</span>

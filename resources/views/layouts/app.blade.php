@@ -207,7 +207,7 @@
     <!-- Footer (Clean, Truthful, Free of AI Hype) -->
     <footer class="relative z-10 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0B0F19] py-5 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4">
-            Briefly : Asisten Produksi Media dan Desain Kampus • Himpunan Mahasiswa
+            Briefly : Asisten Produksi Media dan Desain
         </div>
     </footer>
 </body>

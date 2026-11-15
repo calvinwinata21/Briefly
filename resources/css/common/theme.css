@@ -94,28 +94,28 @@ html.light ::-webkit-scrollbar-thumb:hover {
 /* --------------------------------------------------------------------------
    Light Mode Global Typography & Heading Contrast
    -------------------------------------------------------------------------- */
-html:not(.dark) h1,
-html.light h1,
-html:not(.dark) h2,
-html.light h2,
-html:not(.dark) h3,
-html.light h3,
-html:not(.dark) h4,
-html.light h4 {
+html:not(.dark) h1:not(.slide-canvas *),
+html.light h1:not(.slide-canvas *),
+html:not(.dark) h2:not(.slide-canvas *),
+html.light h2:not(.slide-canvas *),
+html:not(.dark) h3:not(.slide-canvas *),
+html.light h3:not(.slide-canvas *),
+html:not(.dark) h4:not(.slide-canvas *),
+html.light h4:not(.slide-canvas *) {
     color: #0F172A;
 }
 
 /* Override utility text-white on headings and text blocks, excluding action buttons and slide canvas */
-html:not(.dark) h1.text-white,
-html.light h1.text-white,
-html:not(.dark) h2.text-white,
-html.light h2.text-white,
-html:not(.dark) h3.text-white,
-html.light h3.text-white,
-html:not(.dark) h4.text-white,
-html.light h4.text-white,
-html:not(.dark) p.text-white,
-html.light p.text-white,
+html:not(.dark) h1.text-white:not(.slide-canvas *),
+html.light h1.text-white:not(.slide-canvas *),
+html:not(.dark) h2.text-white:not(.slide-canvas *),
+html.light h2.text-white:not(.slide-canvas *),
+html:not(.dark) h3.text-white:not(.slide-canvas *),
+html.light h3.text-white:not(.slide-canvas *),
+html:not(.dark) h4.text-white:not(.slide-canvas *),
+html.light h4.text-white:not(.slide-canvas *),
+html:not(.dark) p.text-white:not(.slide-canvas *),
+html.light p.text-white:not(.slide-canvas *),
 html:not(.dark) div.text-white:not(.btn-primary):not(.btn-primary *):not([class*="bg-[#003366]"]):not([class*="bg-[#003366]"] *):not(.bg-emerald-600):not(.bg-emerald-600 *):not(.bg-rose-600):not(.bg-rose-600 *):not(.bg-indigo-600):not(.bg-indigo-600 *):not(.slide-canvas):not(.slide-canvas *),
 html.light div.text-white:not(.btn-primary):not(.btn-primary *):not([class*="bg-[#003366]"]):not([class*="bg-[#003366]"] *):not(.bg-emerald-600):not(.bg-emerald-600 *):not(.bg-rose-600):not(.bg-rose-600 *):not(.bg-indigo-600):not(.bg-indigo-600 *):not(.slide-canvas):not(.slide-canvas *),
 html:not(.dark) span.text-white:not(.btn-primary):not(.btn-primary *):not([class*="bg-[#003366]"]):not([class*="bg-[#003366]"] *):not(.bg-emerald-600):not(.bg-emerald-600 *):not(.bg-rose-600):not(.bg-rose-600 *):not(.bg-indigo-600):not(.bg-indigo-600 *):not(.slide-canvas):not(.slide-canvas *),
@@ -178,8 +178,8 @@ html.light .divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
    -------------------------------------------------------------------------- */
 html:not(.dark) [class*="bg-slate-900"]:not(.slide-canvas):not(.slide-canvas *):not(input):not(textarea):not(select),
 html.light [class*="bg-slate-900"]:not(.slide-canvas):not(.slide-canvas *):not(input):not(textarea):not(select),
-html:not(.dark) .bg-slate-950:not(.slide-canvas):not(.slide-canvas *):not(input):not(textarea):not(select),
-html.light .bg-slate-950:not(.slide-canvas):not(.slide-canvas *):not(input):not(textarea):not(select),
+html:not(.dark) [class*="bg-slate-950"]:not(.slide-canvas):not(.slide-canvas *):not(input):not(textarea):not(select),
+html.light [class*="bg-slate-950"]:not(.slide-canvas):not(.slide-canvas *):not(input):not(textarea):not(select),
 html:not(.dark) .bg-\[\#0B0F19\]:not(body):not(header),
 html.light .bg-\[\#0B0F19\]:not(body):not(header) {
     background-color: #F8FAFC !important;
