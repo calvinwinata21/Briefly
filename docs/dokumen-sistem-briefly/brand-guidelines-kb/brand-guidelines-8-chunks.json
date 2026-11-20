@@ -1,0 +1,74 @@
+[
+  {
+    "chunk_id": 1,
+    "code": "CHK-01",
+    "category": "color_primary",
+    "rule_title": "Palet Warna Primer Organisasi",
+    "content": "Palet warna primer HMSI terdiri atas Dark Navy (#0F172A) sebagai latar utama mode gelap/resmi dan Royal Blue (#3B82F6) sebagai warna identitas kartu konten dan surface header. Rasio kontras teks terhadap latar wajib memenuhi standar WCAG AA minimal 4.5:1. Teks pada latar gelap wajib berwarna putih (#FFFFFF) atau Slate-100 (#F1F5F9).",
+    "keywords": ["warna", "palet", "primary", "navy", "blue", "latar", "kontras", "hex", "#0F172A", "#3B82F6"],
+    "allowed_channels": ["all"]
+  },
+  {
+    "chunk_id": 2,
+    "code": "CHK-02",
+    "category": "color_accent",
+    "rule_title": "Warna Aksen dan Tombol Aksi (CTA)",
+    "content": "Warna aksen wajib menggunakan Amber Gold (#F59E0B) untuk penekanan tanggal penting, batas pendaftaran, dan tombol Call to Action (CTA). Warna Emerald (#10B981) digunakan untuk status pendaftaran dibuka atau gratis. Dilarang keras menggunakan warna neon, merah muda menyala, atau gradasi pelangi yang merusak identitas resmi.",
+    "keywords": ["aksen", "tombol", "cta", "amber", "emas", "emerald", "deadline", "daftar", "#F59E0B", "#10B981"],
+    "allowed_channels": ["all"]
+  },
+  {
+    "chunk_id": 3,
+    "code": "CHK-03",
+    "category": "typography_heading",
+    "rule_title": "Tipografi Judul dan Headline Visual",
+    "content": "Font headline utama wajib menggunakan Plus Jakarta Sans atau Inter berbobot Bold (700) atau ExtraBold (800). Ukuran proporsional minimal 28pt setara visual poster. Judul harus ringkas, maksimal 8 kata, dan tidak menggunakan tanda seru berulang (cukup satu jika ada).",
+    "keywords": ["font", "tipografi", "heading", "judul", "plus jakarta sans", "inter", "bold", "headline"],
+    "allowed_channels": ["visual_slides"]
+  },
+  {
+    "chunk_id": 4,
+    "code": "CHK-04",
+    "category": "typography_body",
+    "rule_title": "Tipografi Teks Isi dan Keterbacaan",
+    "content": "Teks isi (body text) menggunakan font Inter atau Roboto berbobot Regular (400) atau Medium (500) dengan line-height 1.5. Ukuran setara minimal 14pt pada layar ponsel. Paragraf deskripsi dalam satu slide visual tidak boleh melebihi 35 kata agar slide tetap bersih dan mudah dipindai mata.",
+    "keywords": ["body", "teks", "font", "inter", "roboto", "paragraf", "keterbacaan", "ukuran"],
+    "allowed_channels": ["visual_slides"]
+  },
+  {
+    "chunk_id": 5,
+    "code": "CHK-05",
+    "category": "layout_structure",
+    "rule_title": "Arsitektur 4 Slide Carousel Publikasi",
+    "content": "Materi promosi carousel wajib dirancang tepat dalam 4 slide berurutan: Slide 1 (Hook/Headline penarik perhatian dan nama acara), Slide 2 (Problem/Konteks permasalahan yang dijawab acara), Slide 3 (Offering/Silabus materi, benefit, narasumber), Slide 4 (Call to Action/Detail tanggal, tautan pendaftaran, dan narahubung).",
+    "keywords": ["carousel", "slide", "hook", "problem", "offering", "cta", "struktur", "4 slide", "tata letak"],
+    "allowed_channels": ["visual_slides"]
+  },
+  {
+    "chunk_id": 6,
+    "code": "CHK-06",
+    "category": "voice_casual",
+    "rule_title": "Tone of Voice Kasual Energik (Mahasiswa)",
+    "content": "Gaya komunikasi kasual berenergi (casual_energetic) menggunakan sapaan akrab 'Halo Rekan SI!' atau 'Hai Sobat Kampus!'. Kalimat bernada optimis, mengajak kolaborasi, menggunakan kata kerja aktif, dan dibatasi maksimal 3 emoji relevan per postingan. Cocok untuk workshop, kompetisi, dan gathering santai.",
+    "keywords": ["nada", "tone", "kasual", "energetik", "casual_energetic", "rekan si", "emoji", "santai", "lomba"],
+    "allowed_channels": ["instagram", "whatsapp_broadcast"]
+  },
+  {
+    "chunk_id": 7,
+    "code": "CHK-07",
+    "category": "voice_formal",
+    "rule_title": "Tone of Voice Formal Akademik",
+    "content": "Gaya komunikasi formal akademik (formal_academic) menggunakan bahasa Indonesia baku sesuai EYD, sapaan 'Yth. Sivitas Akademika dan Rekan Mahasiswa'. Struktur kalimat pasif/objektif, tanpa bahasa gaul/slang, dan tanpa emoji dekoratif. Wajib digunakan untuk seminar nasional, kuliah tamu, yudisium, dan pengumuman beasiswa.",
+    "keywords": ["formal", "akademik", "formal_academic", "baku", "eyd", "seminar", "sivitas akademika", "kuliah tamu"],
+    "allowed_channels": ["linkedin_post", "whatsapp_broadcast"]
+  },
+  {
+    "chunk_id": 8,
+    "code": "CHK-08",
+    "category": "channels_hashtags",
+    "rule_title": "Aturan Kanal Publikasi dan Tagar Resmi",
+    "content": "Setiap publikasi Instagram wajib mencantumkan tagar resmi: #HMSIJuara #SistemInformasi #KapitaSelektaAI #EventKampus. Salinan WhatsApp wajib menggunakan format Markdown tebal (*bold*) pada tanggal acara dan tautan pendaftaran dalam format wa.me/628... Salinan LinkedIn wajib berfokus pada pengembangan karir dan kompetensi industri.",
+    "keywords": ["tagar", "hashtag", "instagram", "whatsapp", "linkedin", "broadcast", "wa.me", "saluran"],
+    "allowed_channels": ["instagram", "whatsapp_broadcast", "linkedin_post"]
+  }
+]

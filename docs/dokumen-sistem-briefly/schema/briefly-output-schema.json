@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BrieflyAiProductionPayloadContract",
+  "description": "Formal contract schema for Briefly AI generated media production drafts (K=23 academic scope)",
+  "type": "object",
+  "required": [
+    "job_id",
+    "execution_timestamp",
+    "selected_tone",
+    "event_metadata",
+    "branding_rules_applied",
+    "visual_slides_layout",
+    "social_media_caption",
+    "orchestrator_telemetry",
+    "workflow_status"
+  ],
+  "properties": {
+    "job_id": {
+      "type": "string",
+      "pattern": "^job-[a-z0-9\\-]+$"
+    },
+    "execution_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "selected_tone": {
+      "type": "string",
+      "enum": [
+        "casual_energetic",
+        "formal_academic",
+        "persuasive_urgent"
+      ]
+    },
+    "event_metadata": {
+      "type": "object",
+      "required": [
+        "name",
+        "date",
+        "target",
+        "highlights",
+        "contact"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 3 },
+        "date": { "type": "string", "minLength": 3 },
+        "target": { "type": "string" },
+        "highlights": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "contact": { "type": "string" }
+      }
+    },
+    "branding_rules_applied": {
+      "type": "object",
+      "required": [
+        "primary_color",
+        "secondary_color",
+        "accent_color",
+        "font_heading",
+        "font_body",
+        "brand_voice_applied",
+        "rag_chunks_cited"
+      ],
+      "properties": {
+        "primary_color": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        },
+        "secondary_color": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        },
+        "accent_color": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        },
+        "font_heading": { "type": "string" },
+        "font_body": { "type": "string" },
+        "brand_voice_applied": { "type": "string" },
+        "rag_chunks_cited": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1, "maximum": 8 },
+          "minItems": 1
+        }
+      }
+    },
+    "visual_slides_layout": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "slide_number",
+          "slide_type",
+          "headline",
+          "subheadline",
+          "body_copy",
+          "visual_notes",
+          "citation_chunk"
+        ],
+        "properties": {
+          "slide_number": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "slide_type": {
+            "type": "string",
+            "enum": [
+              "HOOK_HEADLINE",
+              "PROBLEM_CONTEXT",
+              "CORE_OFFERING",
+              "CALL_TO_ACTION"
+            ]
+          },
+          "headline": { "type": "string", "minLength": 2 },
+          "subheadline": { "type": "string" },
+          "body_copy": { "type": "string" },
+          "visual_notes": { "type": "string" },
+          "citation_chunk": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8
+          }
+        }
+      }
+    },
+    "social_media_caption": {
+      "type": "object",
+      "required": [
+        "instagram",
+        "whatsapp_broadcast",
+        "linkedin_post"
+      ],
+      "properties": {
+        "instagram": {
+          "type": "object",
+          "required": ["caption_text", "hashtags"],
+          "properties": {
+            "caption_text": { "type": "string", "minLength": 10 },
+            "hashtags": {
+              "type": "array",
+              "items": { "type": "string" },
+              "minItems": 1
+            }
+          }
+        },
+        "whatsapp_broadcast": {
+          "type": "object",
+          "required": ["broadcast_text"],
+          "properties": {
+            "broadcast_text": { "type": "string", "minLength": 10 }
+          }
+        },
+        "linkedin_post": {
+          "type": "object",
+          "required": ["post_text"],
+          "properties": {
+            "post_text": { "type": "string", "minLength": 10 }
+          }
+        }
+      }
+    },
+    "orchestrator_telemetry": {
+      "type": "object",
+      "required": [
+        "steps_executed",
+        "tools_invoked",
+        "model_name",
+        "estimated_cost_idr"
+      ],
+      "properties": {
+        "steps_executed": { "type": "integer", "minimum": 1 },
+        "tools_invoked": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "model_name": { "type": "string" },
+        "estimated_cost_idr": { "type": "number", "minimum": 0 }
+      }
+    },
+    "workflow_status": {
+      "type": "string",
+      "enum": ["PENDING_REVIEW"]
+    }
+  }
+}
